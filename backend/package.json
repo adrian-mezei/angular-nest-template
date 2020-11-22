@@ -1,6 +1,6 @@
 {
     "name": "backend",
-    "description": "Nest template for further projects that use NestJS as Node.js framework.",
+    "description": "Nest template for further projects that use NestJS as Node.js backend framework.",
     "version": "1.0.0",
     "author": {
         "name": "Adrián Mezei",
@@ -49,7 +49,6 @@
         "eslint": "^7.12.1",
         "eslint-config-prettier": "^6.15.0",
         "eslint-plugin-prettier": "^3.1.4",
-        "husky": "^4.3.0",
         "jest": "^26.6.3",
         "prettier": "^2.2.0",
         "supertest": "^6.0.0",
@@ -75,10 +74,5 @@
         ],
         "coverageDirectory": "../coverage",
         "testEnvironment": "node"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run test:all"
-        }
     }
 }
