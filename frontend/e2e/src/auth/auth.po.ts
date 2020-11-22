@@ -1,15 +1,15 @@
 import { browser, by, element, ElementFinder, WebElement } from 'protractor';
 
 export class AppPage {
-    navigateTo(): Promise<any> {
-        return browser.get(browser.baseUrl) as Promise<any>;
+    async navigateTo(): Promise<unknown> {
+        return browser.get(browser.baseUrl);
     }
 
-    getLoginMessage(): Promise<any> {
-        return element(by.css('app-root .login-form h2')).getText() as Promise<string>;
+    async getLoginMessage(): Promise<string> {
+        return element(by.css('app-root .login-form h2')).getText();
     }
 
-    getLoginButton(): ElementFinder {
+    async getLoginButton(): Promise<ElementFinder> {
         return element(by.css('app-root .login-form div form button'));
     }
 }

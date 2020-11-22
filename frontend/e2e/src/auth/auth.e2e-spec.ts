@@ -8,14 +8,14 @@ describe('workspace-project App', () => {
         page = new AppPage();
     });
 
-    it('should display login message', () => {
-        page.navigateTo();
-        expect<any>(page.getLoginMessage()).toEqual('Bejelentkezés2');
+    it('should display login message', async () => {
+        await page.navigateTo();
+        expect(await page.getLoginMessage()).toEqual('Bejelentkezés2');
     });
 
-    it('should display login button', () => {
-        page.navigateTo();
-        expect(page.getLoginButton().isPresent()).toBeTruthy();
+    it('should display login button', async () => {
+        await page.navigateTo();
+        expect((await page.getLoginButton()).isPresent()).toBeTruthy();
     });
 
     afterEach(async () => {

@@ -8,9 +8,9 @@ describe('workspace-project App', () => {
         page = new AppPage();
     });
 
-    it('should have title', () => {
-        page.navigateTo();
-        expect<any>(page.getTitleText()).toEqual('Angular Nest template');
+    it('should have title', async () => {
+        await page.navigateTo();
+        expect(await page.getTitleText()).toEqual('Angular Nest template');
     });
 
     afterEach(async () => {
