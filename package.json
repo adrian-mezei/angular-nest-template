@@ -11,12 +11,15 @@
         "url": "https://gitlab.com/adrian-mezei-smart-home/angular-nest-template.git"
     },
     "private": true,
+	"scripts": {
+		"test:all": "cd frontend && npm run test:all && cd ../backend && npm run test:all"
+	},
     "devDependencies": {
         "husky": "^4.3.0"
     },
 	"husky": {
         "hooks": {
-            "pre-commit": "cd frontend && npm run test:all && cd ../backend && npm run test:all"
+            "pre-commit": "npm run test:all"
         }
     }
 }

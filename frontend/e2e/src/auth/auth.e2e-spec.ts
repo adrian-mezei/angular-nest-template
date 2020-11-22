@@ -1,7 +1,7 @@
 import { AppPage } from './auth.po';
 import { browser, logging } from 'protractor';
 
-describe('workspace-project App', () => {
+describe('Auth component', () => {
     let page: AppPage;
 
     beforeEach(() => {
