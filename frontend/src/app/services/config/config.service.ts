@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfigModel } from '../../../models/config/ConfigModel';
+import { ConfigModel } from 'src/app/models/config/ConfigModel';
 import { BackendBaseService } from '../backend-base/backend-base.service';
 
 const serviceBasePath = '/frontendConfig';
@@ -13,7 +13,7 @@ export class ConfigService extends BackendBaseService {
         super(http, serviceBasePath);
     }
 
-    public getConfig() {
+    public getConfig(): ConfigModel {
         return this.callApi<ConfigModel>(this.basePath, 'GET');
     }
 }

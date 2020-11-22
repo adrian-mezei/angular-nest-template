@@ -12,7 +12,6 @@
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
         "prettier.tabWidth": 4,
-        "typescript.preferences.importModuleSpecifier": "relative",
         "debug.javascript.autoAttachFilter": "smart"
     }
 }

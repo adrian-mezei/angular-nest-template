@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
     it('should have title', () => {
         page.navigateTo();
-        expect(page.getTitleText()).toEqual('Angular Nest template');
+        expect<any>(page.getTitleText()).toEqual('Angular Nest template');
     });
 
     afterEach(async () => {

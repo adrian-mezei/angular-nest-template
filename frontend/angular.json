@@ -3,13 +3,9 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "angular-nest-template": {
+        "frontend": {
             "projectType": "application",
-            "schematics": {
-                "@schematics/angular:component": {
-                    "style": "scss"
-                }
-            },
+            "schematics": {},
             "root": "",
             "sourceRoot": "src",
             "prefix": "app",
@@ -17,7 +13,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/angular-nest-template",
+                        "outputPath": "dist/frontend",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -32,7 +28,7 @@
                                 "output": "./assets"
                             }
                         ],
-                        "styles": ["src/styles.scss"],
+                        "styles": ["src/styles.css"],
                         "scripts": []
                     },
                     "configurations": {
@@ -68,19 +64,19 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "angular-nest-template:build",
+                        "browserTarget": "frontend:build",
                         "proxyConfig": "src/proxy.conf.json"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "angular-nest-template:build:production"
+                            "browserTarget": "frontend:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "angular-nest-template:build"
+                        "browserTarget": "frontend:build"
                     }
                 },
                 "test": {
@@ -99,14 +95,14 @@
                                 "output": "./assets"
                             }
                         ],
-                        "styles": ["src/styles.scss"],
+                        "styles": ["src/styles.css"],
                         "scripts": []
                     }
                 },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.e2e.json"],
+                        "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
                         "exclude": ["**/node_modules/**"]
                     }
                 },
@@ -114,16 +110,16 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "angular-nest-template:serve"
+                        "devServerTarget": "frontend:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "angular-nest-template:serve:production"
+                            "devServerTarget": "frontend:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "angular-nest-template"
+    "defaultProject": "frontend"
 }

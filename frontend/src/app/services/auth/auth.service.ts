@@ -16,7 +16,7 @@ export class AuthService extends BackendBaseService {
         super(http, serviceBasePath);
     }
 
-    getGoogleAuthUrl() {
+    getGoogleAuthUrl(): string {
         return `${this.basePath}${AuthPaths.GOOGLE_AUTH}`;
     }
 }

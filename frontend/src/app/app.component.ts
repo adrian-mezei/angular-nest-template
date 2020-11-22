@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfigService } from './services/config/config.service';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
-    private title = 'angular-nest-template';
-
-    constructor(private configService: ConfigService) {}
-
-    ngOnInit() {}
-}
+export class AppComponent {}

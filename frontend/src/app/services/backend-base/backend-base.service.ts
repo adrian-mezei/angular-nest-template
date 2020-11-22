@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export abstract class BackendBaseService {
     private backendBasePath = '/api';
@@ -6,7 +7,7 @@ export abstract class BackendBaseService {
 
     constructor(private http: HttpClient, private serviceBasePath: string) {}
 
-    callApi<T>(path: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', body?: object) {
+    callApi<T>(path: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', body?: object): Observable<T> {
         switch (method) {
             case 'GET':
                 return this.http.get<T>(path);

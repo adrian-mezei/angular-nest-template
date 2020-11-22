@@ -1,31 +1,69 @@
-# angular-nest-template backend
+# Backend <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" height="28" alt="Nest Logo" /></a>
 
-This project is a template for any application that uses Angular as a frontend framework and NestJS as a backend Node.js framework.
+## Description
 
-## Development server
+This project is a template for any application that uses [Nest](https://github.com/nestjs/nest) as a backend Node.js framework. This project was generated with [Nest CLI](https://docs.nestjs.com/cli/overview) version 7.5.3.
 
-Run `npm run start` for a dev server in debugg mode and with file change watching.
+## Dependency installation
+
+```bash
+# install dependencies
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development with debugging and file watching
+$ npm run start
+
+# production mode
+$ npm run start:prod
+```
+
+The application is configured to start in debugging mode and watch file changes and recompile changes automatically.
 
 ## Build
 
-Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+# build the project
+$ npm run build
+```
 
-## Running unit tests
+The build artifacts will be stored in the `dist/` directory.
 
-Run `npm run test` to execute the unit tests via Jest and `npm run test:watch` to watch file changes.
+## Lint
 
-## Running end-to-end tests
+```bash
+# run the linter
+$ npm run lint
+```
 
-Run `npm run e2e` to execute the end-to-end tests via Jest.
+The linting is executed via [ESLint](https://eslint.org/).
 
-## Running linter
+## Format
 
-Run `npm run lint` to execute the linter via ESLint.
+```bash
+# run the formatter
+$ npm run format
+```
 
-## Run formatter
+Formatting is executed via [Prettier](https://prettier.io/).
 
-Run `npm run format` to execute configured formatter via Prettier.
+## Tests
 
-## Run all tests
+```bash
+# run unit tests
+$ npm run test
 
-Run `npm run test:all` to execute all test, formatter and linter.
+# run unit tests and watch file changes
+$ npm run test:watch
+
+# run end-to-end tests
+$ npm run test:e2e
+
+# run all tests, liter and formatter
+$ npm run test:all
+```
+
+Unit and end-to-end tests are executed via [Jest](https://jestjs.io/).

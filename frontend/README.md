@@ -1,39 +1,81 @@
-# angular-nest-template frontend
+# Frontend <a href="https://www.angular.io" target="blank"><img src="https://raw.githubusercontent.com/angular/angular/master/aio/src/assets/images/logos/angular/angular.png" height="28" alt="Nest Logo" /></a>
 
-This project is a template for any application that uses Angular as a frontend framework and NestJS as a backend Node.js framework.
+This project is a template for any application that uses [Angular](https://www.angular.io) as a frontend framework. This project was generated with [Angular CLI](https://cli.angular.io/) version 11.0.2.
+
+## Dependency installation
+
+```bash
+# install dependencies
+$ npm install
+```
 
 ## Development server
 
-Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+# start development server
+$ npm run start
+```
+
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. API request paths to the backend start with `/api` and are proxied to the backend automatically.
 
 ## Code scaffolding
 
-Run `npm run c -- components/ice-cream` to generate a new component or `npm run s -- services/ice-cream/ice-cream` to generate a new service.
+```bash
+# generate a new component
+$ npm run c -- components/ice-cream
+
+# generate a new service
+$ npm run s -- services/ice-cream/ice-cream
+```
 
 ## Build
 
-Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Run the `npm run build-prod` command for a production build.
+```bash
+# build the project
+$ npm run build
 
-## Running unit tests
+# perform a production build
+$ npm run build:prod
+```
 
-Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io) and `npm run test:watch` to watch file changes.
+The build artifacts will be stored in the `dist/` directory.
 
-## Running end-to-end tests
+## Lint
 
-Run `npm run test:e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```bash
+# run the linter
+$ npm run lint
+```
 
-## Running linter
+The linting is executed via [ESLint](https://eslint.org/).
 
-Run `npm run lint` to execute the linter via ESLint.
+## Format
 
-## Run formatter
+```bash
+# run the formatter
+$ npm run format
+```
 
-Run `npm run format` to execute configured formatter via Prettier.
+Formatting is executed via [Prettier](https://prettier.io/).
 
-## Run all tests
+## Tests
 
-Run `npm run test:all` to execute all test, formatter and linter.
+```bash
+# run unit tests
+$ npm run test
+
+# run unit tests and watch file changes
+$ npm run test:watch
+
+# run end-to-end tests
+$ npm run test:e2e
+
+# run all tests, liter and formatter
+$ npm run test:all
+```
+
+Unit tests are executed via [Karma](https://karma-runner.github.io) while end-to-end tests are executed via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
-To get more help on the Angular CLI use `npm run ng -- help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To get more help on the Angular CLI use `npm run ng -- help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
