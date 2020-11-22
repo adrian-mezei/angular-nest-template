@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
     it('should display login message', () => {
         page.navigateTo();
-        expect<any>(page.getLoginMessage()).toEqual('Bejelentkezés');
+        expect<any>(page.getLoginMessage()).toEqual('Bejelentkezés2');
     });
 
     it('should display login button', () => {
