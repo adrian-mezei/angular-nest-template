@@ -5,7 +5,7 @@ export abstract class BackendBaseService {
     private backendBasePath = '/api';
     protected basePath = `${this.backendBasePath}${this.serviceBasePath}`;
 
-    constructor(private http: HttpClient, private serviceBasePath: string) {}
+    constructor(protected http: HttpClient, private serviceBasePath: string) {}
 
     callApi<T>(path: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', body?: object): Observable<T> {
         switch (method) {

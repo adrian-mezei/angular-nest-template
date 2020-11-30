@@ -13,3 +13,7 @@
 .login-form h2 {
     margin: 0 0 30px;
 }
+
+.login-button {
+    border: black solid 1px;
+}

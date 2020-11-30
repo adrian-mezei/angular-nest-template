@@ -6,7 +6,7 @@ export class AuthService {
     constructor(private usersService: UsersService) {}
 
     async googleLogin(req: any) {
-        if (!req.user) {
+        if (!req.user || !req.user.email) {
             return 'No user from google.';
         }
 

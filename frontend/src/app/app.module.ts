@@ -4,13 +4,28 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthComponent } from './components/auth/auth.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderOverlayComponent } from './components/loader-overlay/loader-overlay.component';
+import { Overlay } from '@angular/cdk/overlay';
+import { LoginCallbackComponent } from './components/login-callback/login-callback.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [AppComponent, AuthComponent],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        HomeComponent,
+        LoaderComponent,
+        LoaderOverlayComponent,
+        LoginCallbackComponent,
+        NotFoundComponent,
+    ],
     imports: [BrowserModule, HttpClientModule, AppRoutingModule, FontAwesomeModule],
-    providers: [],
+    providers: [Overlay],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,18 +1,20 @@
+import { Overlay } from '@angular/cdk/overlay';
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { LoginService } from '../login/login.service';
 
-import { BackendBaseService } from './backend-base.service';
+import { LoaderService } from './loader.service';
 
-describe('BackendBaseService', () => {
+describe('LoaderService', () => {
+    let service: LoaderService;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            providers: [Overlay],
         });
+        service = TestBed.inject(LoaderService);
     });
 
     it('should be created', () => {
-        const service: BackendBaseService = TestBed.inject(LoginService);
         expect(service).toBeTruthy();
     });
 });

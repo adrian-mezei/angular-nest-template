@@ -1,0 +1,14 @@
+.container {
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.inner-container {
+    justify-content: center;
+    text-align: center;
+}
+
+#back-to-home {
+    cursor: pointer;
+}
