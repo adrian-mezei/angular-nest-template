@@ -27,13 +27,13 @@ The application is configured to start in debugging mode and watch file changes 
 
 ```bash
 # generate a new module
-$ npm run m -- components/ice-cream
+$ npm run m -- ice-cream
 
 # generate a new controller
-$ npm run c -- components/ice-cream
+$ npm run c -- ice-cream
 
 # generate a new service
-$ npm run s -- services/ice-cream/ice-cream
+$ npm run s -- ice-cream
 ```
 
 ## Build
