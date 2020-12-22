@@ -12,6 +12,7 @@
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
         "prettier.tabWidth": 4,
-        "debug.javascript.autoAttachFilter": "smart"
+        "debug.javascript.autoAttachFilter": "smart",
+        "files.eol": "\n"
     }
 }
