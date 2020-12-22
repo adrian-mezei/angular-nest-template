@@ -23,6 +23,19 @@ $ npm run start:prod
 
 The application is configured to start in debugging mode and watch file changes and recompile changes automatically.
 
+## Code scaffolding
+
+```bash
+# generate a new module
+$ npm run m -- components/ice-cream
+
+# generate a new controller
+$ npm run c -- components/ice-cream
+
+# generate a new service
+$ npm run s -- services/ice-cream/ice-cream
+```
+
 ## Build
 
 ```bash
