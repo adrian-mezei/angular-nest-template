@@ -1,10 +1,7 @@
 import { Component, OnInit, Optional } from '@angular/core';
-import { ThemeService } from '../../services/theme/theme.service';
-import { LoginService } from '../../services/login/login.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouteValues } from 'src/app/app-routing.module';
+import { ThemeService } from './../../services/theme/theme.service';
+import { LoginService } from './../../services/login/login.service';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
     selector: 'app-login',

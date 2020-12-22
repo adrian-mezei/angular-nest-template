@@ -15,7 +15,8 @@ describe('AuthController (e2e)', () => {
         await app.init();
     });
 
-    it('/auth/google (GET) should redirect', () => {
-        return request(app.getHttpServer()).get('/auth/google').expect(302);
+    const path = '/auth/google';
+    it(`${path} (GET) should redirect with HTTP status 302`, () => {
+        return request(app.getHttpServer()).get(path).expect(302);
     });
 });

@@ -15,7 +15,8 @@ describe('AppController (e2e)', () => {
         await app.init();
     });
 
-    it('/ (GET)', () => {
-        return request(app.getHttpServer()).get('/').expect(200).expect('OK');
+    const path = '/';
+    it(`${path} (GET) should return 'OK'`, () => {
+        return request(app.getHttpServer()).get(path).expect(200).expect('OK');
     });
 });

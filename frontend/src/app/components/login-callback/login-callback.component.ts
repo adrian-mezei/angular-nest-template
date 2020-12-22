@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouteValues } from 'src/app/app-routing.module';
-import { LoaderService } from 'src/app/services/loader/loader.service';
-import { LoginService } from 'src/app/services/login/login.service';
+import { RouteValues } from '../../app-routing.module';
+import { LoaderService } from '../../services/loader/loader.service';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
     selector: 'app-login-callback',

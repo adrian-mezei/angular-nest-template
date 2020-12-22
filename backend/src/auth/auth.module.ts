@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { UsersModule } from '../users/users.module';
-import { UsersService } from '../users/users.service';
 import { GoogleStrategy } from './google.strategy';
+import { ConfigModule } from '@nestjs/config';
+import { AuthService } from './service/auth.service';
+import { AuthController } from './controller/auth.controller';
+import { UsersModule } from '../user/user.module';
+import { UsersService } from '../user/service/user.service';
 
 @Module({
-    imports: [UsersModule],
+    imports: [UsersModule, ConfigModule],
     providers: [AuthService, UsersService, GoogleStrategy],
     controllers: [AuthController],
 })

@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { LoginService } from '../login/login.service';
+import { LoginService } from './../login/login.service';
 
 import { BackendBaseService } from './backend-base.service';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouteValues } from 'src/app/app-routing.module';
+import { RouteValues } from '../../app-routing.module';
 
 @Component({
     selector: 'app-not-found',
