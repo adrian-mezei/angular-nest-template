@@ -2,9 +2,9 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import * as yaml from 'js-yaml';
 import { plainToClass } from 'class-transformer';
-import { IsEnum, IsNotEmpty, IsNumber, IsString, validateSync } from 'class-validator';
-import 'dotenv-defaults/config';
-import { LoggerLevel, LoggerTarget } from './app.logger';
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, validateSync } from 'class-validator';
+import 'dotenv/config';
+import { LoggerFormat, LoggerLevel, LoggerTarget } from './app.logger';
 
 export class Configuration {
     private static readonly YAML_CONFIG_FILENAME = 'config.yml';
@@ -28,6 +28,26 @@ export class Configuration {
     @IsNotEmpty()
     @IsEnum(LoggerLevel)
     LOGGER__LEVEL: string;
+
+    @IsNotEmpty()
+    @IsEnum(LoggerFormat)
+    LOGGER__FORMAT: string;
+
+    @IsNotEmpty()
+    @IsBoolean()
+    LOGGER__COLORIZE: boolean;
+
+    @IsNotEmpty()
+    @IsString()
+    LOGGER__FILE_OPTIONS__FOLDER_PATH: string;
+
+    @IsNotEmpty()
+    @IsNumber()
+    LOGGER__FILE_OPTIONS__MAX_SIZE_BYTES: number;
+
+    @IsNotEmpty()
+    @IsNumber()
+    LOGGER__FILE_OPTIONS__MAX_FILES_COUNT: number;
 
     @IsNotEmpty()
     @IsString()
@@ -56,7 +76,9 @@ export class Configuration {
 
         for (const config of configs) {
             for (const key in config) {
-                mergedConfig[key] = config[key];
+                if (config[key] !== '') {
+                    mergedConfig[key] = config[key];
+                }
             }
         }
 

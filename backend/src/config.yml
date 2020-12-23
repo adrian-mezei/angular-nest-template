@@ -3,8 +3,14 @@ PORT: 3000
 BASE_PATH: api
 
 LOGGER:
-    TARGET: file
-    LEVEL: info
+    TARGET: console
+    LEVEL: debug
+    FORMAT: human
+    COLORIZE: true
+    FILE_OPTIONS:
+        FOLDER_PATH: logs
+        MAX_SIZE_BYTES: 5000000
+        MAX_FILES_COUNT: 10
 
 AUTH:
     GOOGLE_CLIENT_ID: ''

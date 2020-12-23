@@ -17,7 +17,7 @@ async function bootstrap() {
 
     app.useLogger(
         WinstonModule.createLogger({
-            transports: LoggerConfiguration.getTransports(configService),
+            transports: new LoggerConfiguration(configService).getTransports(),
         }),
     );
 
