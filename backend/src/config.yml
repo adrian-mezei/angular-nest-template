@@ -1,0 +1,7 @@
+HOST: localhost
+PORT: 3000
+BASE_PATH: api
+
+AUTH:
+    GOOGLE_CLIENT_ID: ''
+    GOOGLE_CLIENT_SECRET: ''

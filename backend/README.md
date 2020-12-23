@@ -11,6 +11,10 @@ This project is a template for any application that uses [Nest](https://github.c
 $ npm install
 ```
 
+## Configuration
+
+The application uses `dotenv-defaults` for environment variable loading and a local config YAML file for default values. The configurations are loaded from `src/config.yml` file, `.env.defaults` file, `.env` file, `environment variables` in this order. Tha later override the earlier in case the same key exist in multiple locations. The config YAML file can be hierarhic while environment variables are flattened and double underscores ("\_\_") are the separators.
+
 ## Running the app
 
 ```bash
