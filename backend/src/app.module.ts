@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-    imports: [AuthModule, ConfigModule.forRoot({ validate: Configuration.validate })],
+    imports: [AuthModule, ConfigModule.forRoot({ validate: config => Configuration.validate(config) })],
     controllers: [AppController],
     providers: [AppService],
 })
