@@ -76,9 +76,7 @@ export class Configuration {
 
         for (const config of configs) {
             for (const key in config) {
-                if (config[key] !== '') {
-                    mergedConfig[key] = config[key];
-                }
+                mergedConfig[key] = config[key];
             }
         }
 
