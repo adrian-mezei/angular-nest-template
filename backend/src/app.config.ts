@@ -57,6 +57,10 @@ export class Configuration {
     @IsString()
     AUTH__GOOGLE_CLIENT_SECRET: string;
 
+    @IsNotEmpty()
+    @IsString()
+    AUTH__JWT_SECRET: string;
+
     public static validate(environmentConfig: Record<string, unknown>) {
         const fileConfig = this.flattenObject(this.loadConfigurationFile());
 
