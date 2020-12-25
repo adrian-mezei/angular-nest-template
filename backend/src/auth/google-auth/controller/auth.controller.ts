@@ -5,17 +5,17 @@ import { Request } from 'express';
 import { AuthService } from '../service/auth.service';
 
 @ApiTags('auth')
-@Controller('auth')
+@Controller('auth/google')
 export class AuthController {
     constructor(private readonly appService: AuthService) {}
 
-    @Get('google')
+    @Get('')
     @ApiOperation({ summary: 'Google authentication endpoint.' })
     @UseGuards(AuthGuard('google'))
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     async googleAuth(@Req() req: any) {}
 
-    @Get('google/callback')
+    @Get('callback')
     @ApiOperation({ summary: 'Google authentication callback endpoint.' })
     @UseGuards(AuthGuard('google'))
     async googleAuthRedirect(@Req() req: Request) {
