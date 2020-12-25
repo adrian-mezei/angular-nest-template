@@ -14,11 +14,11 @@ import { LocalAuthService } from './service/local-auth.service';
         PassportModule,
         JwtModule.registerAsync({
             imports: [ConfigModule],
+            inject: [ConfigService],
             useFactory: async (configService: ConfigService<Configuration>) => ({
                 secret: configService.get<string>('AUTH__JWT_SECRET'),
                 signOptions: { expiresIn: '2h' },
             }),
-            inject: [ConfigService],
         }),
     ],
     controllers: [LocalAuthController],
