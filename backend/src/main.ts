@@ -12,9 +12,9 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, { logger: false });
 
     const configService = app.get<ConfigService<Configuration>>('ConfigService');
-    const host = configService.get<string>('HOST');
-    const port = configService.get<number>('PORT');
-    const basePath = configService.get<string>('BASE_PATH');
+    const host = configService.get<string>('HOST')!;
+    const port = configService.get<number>('PORT')!;
+    const basePath = configService.get<string>('BASE_PATH')!;
 
     app.useLogger(
         WinstonModule.createLogger({

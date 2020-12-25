@@ -91,7 +91,7 @@ export class Configuration {
         return yaml.load(readFileSync(join(__dirname, this.YAML_CONFIG_FILENAME), 'utf8'));
     }
 
-    private static flattenObject(obj: any, delimiter = '__', parents = []) {
+    private static flattenObject(obj: any, delimiter = '__', parents: string[] = []) {
         const flattened = {};
 
         Object.keys(obj).forEach(key => {

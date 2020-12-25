@@ -30,17 +30,17 @@ export class LoggerConfiguration {
     loggerMaxFilesCount: number;
 
     constructor(configService: ConfigService<Configuration>) {
-        this.loggerTarget = configService.get<LoggerTarget>('LOGGER__TARGET');
-        this.loggerLevel = configService.get<LoggerLevel>('LOGGER__LEVEL');
-        this.loggerFormat = configService.get<LoggerFormat>('LOGGER__FORMAT');
-        this.loggerColorize = configService.get<boolean>('LOGGER__COLORIZE');
-        this.loggerFolderPath = configService.get<string>('LOGGER__FILE_OPTIONS__FOLDER_PATH');
-        this.loggerMaxSizeBytes = configService.get<number>('LOGGER__FILE_OPTIONS__MAX_SIZE_BYTES');
-        this.loggerMaxFilesCount = configService.get<number>('LOGGER__FILE_OPTIONS__MAX_FILES_COUNT');
+        this.loggerTarget = configService.get<LoggerTarget>('LOGGER__TARGET')!;
+        this.loggerLevel = configService.get<LoggerLevel>('LOGGER__LEVEL')!;
+        this.loggerFormat = configService.get<LoggerFormat>('LOGGER__FORMAT')!;
+        this.loggerColorize = configService.get<boolean>('LOGGER__COLORIZE')!;
+        this.loggerFolderPath = configService.get<string>('LOGGER__FILE_OPTIONS__FOLDER_PATH')!;
+        this.loggerMaxSizeBytes = configService.get<number>('LOGGER__FILE_OPTIONS__MAX_SIZE_BYTES')!;
+        this.loggerMaxFilesCount = configService.get<number>('LOGGER__FILE_OPTIONS__MAX_FILES_COUNT')!;
     }
 
     public getTransports() {
-        const transports = [];
+        const transports: winston.transport[] = [];
 
         if (this.loggerTarget === LoggerTarget.console) {
             transports.push(this.getConsoleTransport());
