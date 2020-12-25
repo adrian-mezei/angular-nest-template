@@ -27,19 +27,6 @@ $ npm run start:prod
 
 The application is configured to start in debugging mode and watch file changes and recompile changes automatically.
 
-## Code scaffolding
-
-```bash
-# generate a new module
-$ npm run m -- ice-cream
-
-# generate a new controller
-$ npm run c -- ice-cream
-
-# generate a new service
-$ npm run s -- ice-cream
-```
-
 ## Build
 
 ```bash
@@ -88,3 +75,25 @@ Unit and end-to-end tests are executed via [Jest](https://jestjs.io/).
 ## Logging
 
 The application uses `winston` to handle logging. Configurations can be edited in the config YAML file and through environment variables. Logs can be written to the console or to files, they can be colorized and formatted, and log levels can also be set.
+
+## Development
+
+### Code scaffolding
+
+```bash
+# generate a new module
+$ npm run m -- ice-cream
+
+# generate a new controller
+$ npm run c -- ice-cream
+
+# generate a new service
+$ npm run s -- ice-cream
+```
+
+### Recommended VSCode plugins
+
+-   [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv) for `.env` file syntax highlight.
+-   [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for consistent code formatting.
+-   [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin) for tslint rule validation.
+-   [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree) for TODO highlight and collection.
