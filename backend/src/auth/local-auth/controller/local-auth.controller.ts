@@ -1,4 +1,4 @@
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Controller, Post, UseGuards, Request, Body } from '@nestjs/common';
 import { LocalAuthGuard } from '../local-auth.guard';
 import { LocalAuthService } from '../service/local-auth.service';
@@ -11,9 +11,9 @@ export class LocalAuthController {
 
     @Post('login')
     @ApiOperation({ summary: 'Local authentication login endpoint.' })
+    @ApiBody({ type: LocalAuthLogin })
     @UseGuards(LocalAuthGuard)
-    async login(@Request() req, @Body() body: LocalAuthLogin) {
-        const user = req.user;
+    async login(@Request() req) {
         return this.authService.login(req.user);
     }
 }
