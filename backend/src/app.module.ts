@@ -4,9 +4,10 @@ import { Configuration } from './app.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/google-auth/auth.module';
+import { LocalAuthModule } from './auth/local-auth/local-auth.module';
 
 @Module({
-    imports: [AuthModule, ConfigModule.forRoot({ validate: config => Configuration.validate(config) })],
+    imports: [AuthModule, ConfigModule.forRoot({ validate: config => Configuration.validate(config) }), LocalAuthModule],
     controllers: [AppController],
     providers: [AppService],
 })
