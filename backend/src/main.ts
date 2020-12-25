@@ -6,6 +6,7 @@ import { Configuration } from './app.config';
 import { WinstonModule } from 'nest-winston';
 import { Logger } from '@nestjs/common';
 import { LoggerConfiguration } from './app.logger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, { logger: false });
@@ -22,6 +23,15 @@ async function bootstrap() {
     );
 
     app.setGlobalPrefix(basePath);
+
+    const options = new DocumentBuilder()
+        .setTitle('Template example')
+        .setDescription('The example API description')
+        .setVersion('3.0')
+        // .addBearerAuth()
+        .build();
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup(basePath + '/swagger', app, document);
 
     await app.listen(port, host);
 
