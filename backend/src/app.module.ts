@@ -3,11 +3,15 @@ import { ConfigModule } from '@nestjs/config';
 import { Configuration } from './app.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/google-auth/auth.module';
+import { GoogleAuthModule } from './auth/google-auth/google-auth.module';
 import { LocalAuthModule } from './auth/local-auth/local-auth.module';
 
 @Module({
-    imports: [AuthModule, ConfigModule.forRoot({ validate: config => Configuration.validate(config) }), LocalAuthModule],
+    imports: [
+        GoogleAuthModule,
+        ConfigModule.forRoot({ validate: config => Configuration.validate(config) }),
+        LocalAuthModule,
+    ],
     controllers: [AppController],
     providers: [AppService],
 })

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersService } from '../../../user/service/user.service';
 
 @Injectable()
-export class AuthService {
+export class GoogleAuthService {
     constructor(private usersService: UsersService) {}
 
     async googleLogin(req: any) {

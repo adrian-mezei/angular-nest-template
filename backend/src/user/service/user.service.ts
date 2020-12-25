@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-export type User = any;
+export interface User {
+    userId: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+}
 
 @Injectable()
 export class UsersService {
@@ -13,6 +19,14 @@ export class UsersService {
                 email: 'mezei.adrian@gmail.com',
                 firstName: 'Adrián',
                 lastName: 'Mezei',
+                password: 'MySecretPw',
+            },
+            {
+                userId: 2,
+                email: 'mezei.adrian.dev@gmail.com',
+                firstName: 'Adrián Dev',
+                lastName: 'Mezei',
+                password: 'MyOtherSecretPw',
             },
         ];
     }
