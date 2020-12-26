@@ -13,6 +13,6 @@ export class User {
     @ApiProperty({ example: 'Doe', description: 'The last name of the User.' })
     lastName: string;
 
-    @ApiProperty({ example: 'secretpassword', description: 'The password of the User.' })
+    @ApiProperty({ example: 'secretPassword', description: 'The password of the User.' })
     password: string;
 }

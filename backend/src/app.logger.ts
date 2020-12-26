@@ -67,7 +67,7 @@ export class LoggerConfiguration {
             filename: 'error.log',
             dirname: this.loggerFolderPath,
             level: this.loggerLevel.toString(),
-            maxsize: this.loggerMaxSizeBytes,
+            maxsize: this.loggerMaxSizeBytes, // cspell:disable-line
             maxFiles: this.loggerMaxFilesCount,
             format: this.getLogFormat(),
         });
@@ -86,7 +86,7 @@ export class LoggerConfiguration {
         }
 
         if (!this.loggerColorize) {
-            format = winston.format.combine(format, winston.format.uncolorize());
+            format = winston.format.combine(format, winston.format.uncolorize()); // cspell:disable-line
         }
 
         return format;

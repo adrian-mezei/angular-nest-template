@@ -7,6 +7,6 @@ export class LocalAuthLogin {
     readonly email: string;
 
     @IsString()
-    @ApiProperty({ example: 'secretpassword', description: 'The password used for login.' })
+    @ApiProperty({ example: 'secretPassword', description: 'The password used for login.' })
     readonly password: string;
 }
