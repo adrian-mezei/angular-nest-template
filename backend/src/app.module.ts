@@ -10,7 +10,7 @@ import { LocalAuthModule } from './auth/local-auth/local-auth.module';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ validate: config => AppConfig.validate(config) }),
+        ConfigModule.forRoot({ validate: config => AppConfig.setupAndValidate(config) }),
         WinstonModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],

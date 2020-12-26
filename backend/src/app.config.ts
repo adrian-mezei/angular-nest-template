@@ -67,11 +67,11 @@ export class AppConfig {
     @IsString()
     AUTH__JWT_SECRET: string;
 
-    public static validate(environmentConfig: Record<string, unknown>) {
+    public static setupAndValidate(environmentConfig: Record<string, unknown>) {
         const fileConfig = this.flattenObject(this.loadConfigurationFile());
 
         let config = this.mergeConfigs([fileConfig, environmentConfig]);
-        config = this.fixBooleanStrings(config); // class-transformer turns 'false' string into true, issue: https://github.com/typestack/class-transformer/issues/306
+        config = this.convertBooleanFalseStrings(config); // class-transformer turns 'false' string into true, issue: https://github.com/typestack/class-transformer/issues/306
 
         const validatedConfig = plainToClass(this, config, { enableImplicitConversion: true });
         const errors = validateSync(validatedConfig, { skipMissingProperties: false });
@@ -82,7 +82,7 @@ export class AppConfig {
         return validatedConfig;
     }
 
-    private static mergeConfigs(configs: Record<string, unknown>[]) {
+    private static mergeConfigs(configs: Record<string, unknown>[]): Record<string, unknown> {
         const mergedConfig = {};
 
         for (const config of configs) {
@@ -94,11 +94,11 @@ export class AppConfig {
         return mergedConfig;
     }
 
-    private static loadConfigurationFile() {
+    private static loadConfigurationFile(): Record<string, unknown> {
         return yaml.load(readFileSync(join(__dirname, this.YAML_CONFIG_FILENAME), 'utf8'));
     }
 
-    private static fixBooleanStrings(config: Record<string, unknown>) {
+    private static convertBooleanFalseStrings(config: Record<string, unknown>): Record<string, unknown> {
         const fixedConfig = Object.assign({}, config);
 
         for (const key in config) {
@@ -110,8 +110,8 @@ export class AppConfig {
         return fixedConfig;
     }
 
-    private static flattenObject(obj: any, delimiter = '__', parents: string[] = []) {
-        const flattened = {};
+    private static flattenObject(obj: any, delimiter = '__', parents: string[] = []): Record<string, unknown> {
+        const flattened: Record<string, unknown> = {};
 
         Object.keys(obj).forEach(key => {
             if (typeof obj[key] === 'object' && obj[key] !== null) {
