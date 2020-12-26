@@ -1,7 +1,7 @@
 import * as winston from 'winston';
 import { utilities as nestWinstonModuleUtilities } from 'nest-winston';
 import { ConfigService } from '@nestjs/config';
-import { Configuration } from './app.config';
+import { AppConfig } from './app.config';
 
 export enum LoggerTarget {
     console = 'console',
@@ -29,7 +29,7 @@ export class LoggerConfiguration {
     loggerMaxSizeBytes: number;
     loggerMaxFilesCount: number;
 
-    constructor(configService: ConfigService<Configuration>) {
+    constructor(configService: ConfigService<AppConfig>) {
         this.loggerTarget = configService.get<LoggerTarget>('LOGGER__TARGET')!;
         this.loggerLevel = configService.get<LoggerLevel>('LOGGER__LEVEL')!;
         this.loggerFormat = configService.get<LoggerFormat>('LOGGER__FORMAT')!;

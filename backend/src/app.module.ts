@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { WinstonModule } from 'nest-winston';
-import { Configuration } from './app.config';
+import { AppConfig } from './app.config';
 import { AppController } from './app.controller';
 import { LoggerConfiguration } from './app.logger';
 import { AppService } from './app.service';
@@ -10,11 +10,11 @@ import { LocalAuthModule } from './auth/local-auth/local-auth.module';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ validate: config => Configuration.validate(config) }),
+        ConfigModule.forRoot({ validate: config => AppConfig.validate(config) }),
         WinstonModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
-            useFactory: async (configService: ConfigService<Configuration>) => ({
+            useFactory: async (configService: ConfigService<AppConfig>) => ({
                 transports: new LoggerConfiguration(configService).getTransports(),
             }),
         }),

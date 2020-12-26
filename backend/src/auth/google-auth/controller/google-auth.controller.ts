@@ -1,7 +1,7 @@
 import { Controller, Get, NotFoundException, Req, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Configuration } from '../../../app.config';
+import { AppConfig } from '../../../app.config';
 import { LocalAuthService } from '../../local-auth/service/local-auth.service';
 import { GoogleAuthGuard } from '../google-auth.guard';
 
@@ -9,7 +9,7 @@ import { GoogleAuthGuard } from '../google-auth.guard';
 @Controller('auth/google')
 export class GoogleAuthController {
     constructor(
-        private readonly configService: ConfigService<Configuration>,
+        private readonly configService: ConfigService<AppConfig>,
         private readonly localAuthService: LocalAuthService,
     ) {}
 

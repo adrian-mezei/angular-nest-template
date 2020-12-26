@@ -2,13 +2,13 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Configuration } from '../../app.config';
+import { AppConfig } from '../../app.config';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     private readonly logger = new Logger(GoogleStrategy.name);
 
-    constructor(private readonly configService: ConfigService<Configuration>) {
+    constructor(private readonly configService: ConfigService<AppConfig>) {
         super({
             clientID: configService.get<string>('AUTH__GOOGLE_OAUTH20__CLIENT_ID'),
             clientSecret: configService.get<string>('AUTH__GOOGLE_OAUTH20__CLIENT_SECRET'),

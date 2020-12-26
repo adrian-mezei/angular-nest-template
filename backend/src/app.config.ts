@@ -6,7 +6,7 @@ import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, ValidateIf, validate
 import 'dotenv/config';
 import { LoggerFormat, LoggerLevel, LoggerTarget } from './app.logger';
 
-export class Configuration {
+export class AppConfig {
     private static readonly YAML_CONFIG_FILENAME = 'config.yml';
 
     @IsNotEmpty()
