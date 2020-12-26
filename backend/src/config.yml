@@ -13,6 +13,8 @@ LOGGER:
         MAX_FILES_COUNT: 10
 
 AUTH:
-    GOOGLE_CLIENT_ID: ''
-    GOOGLE_CLIENT_SECRET: ''
     JWT_SECRET: ''
+    GOOGLE_OAUTH20:
+        ENABLED: false
+        GOOGLE_CLIENT_ID: ''
+        GOOGLE_CLIENT_SECRET: ''

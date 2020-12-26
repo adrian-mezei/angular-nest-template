@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import * as yaml from 'js-yaml';
 import { plainToClass } from 'class-transformer';
-import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, validateSync } from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, ValidateIf, validateSync } from 'class-validator';
 import 'dotenv/config';
 import { LoggerFormat, LoggerLevel, LoggerTarget } from './app.logger';
 
@@ -50,12 +50,18 @@ export class Configuration {
     LOGGER__FILE_OPTIONS__MAX_FILES_COUNT: number;
 
     @IsNotEmpty()
-    @IsString()
-    AUTH__GOOGLE_CLIENT_ID: string;
+    @IsBoolean()
+    AUTH__GOOGLE_OAUTH20__ENABLED: boolean;
 
     @IsNotEmpty()
     @IsString()
-    AUTH__GOOGLE_CLIENT_SECRET: string;
+    @ValidateIf(c => c.AUTH__GOOGLE_OAUTH20__ENABLED)
+    AUTH__GOOGLE_OAUTH20__CLIENT_ID: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ValidateIf(c => c.AUTH__GOOGLE_OAUTH20__ENABLED)
+    AUTH__GOOGLE_OAUTH20__CLIENT_SECRET: string;
 
     @IsNotEmpty()
     @IsString()
