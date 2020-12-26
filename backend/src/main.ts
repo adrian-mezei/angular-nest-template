@@ -8,7 +8,7 @@ import { Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule, { logger: false });
+    const app = await NestFactory.create(AppModule);
 
     const configService = app.get<ConfigService<Configuration>>('ConfigService');
     const host = configService.get<string>('HOST')!;

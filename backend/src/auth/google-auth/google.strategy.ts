@@ -1,5 +1,5 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, VerifyCallback } from 'passport-google-oauth20';
+import { Strategy } from 'passport-google-oauth20';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Configuration } from '../../app.config';
@@ -8,7 +8,7 @@ import { Configuration } from '../../app.config';
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     private readonly logger = new Logger(GoogleStrategy.name);
 
-    constructor(configService: ConfigService<Configuration>) {
+    constructor(private readonly configService: ConfigService<Configuration>) {
         super({
             clientID: configService.get<string>('AUTH__GOOGLE_OAUTH20__CLIENT_ID'),
             clientSecret: configService.get<string>('AUTH__GOOGLE_OAUTH20__CLIENT_SECRET'),
@@ -18,7 +18,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async validate(accessToken: string, refreshToken: any, profile: any, done: VerifyCallback, any: any): Promise<any> {
+    async validate(accessToken: string, refreshToken: any, profile: any): Promise<any> {
         const { name, emails, photos } = profile;
         const user = {
             email: emails[0].value,
@@ -27,6 +27,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
             picture: photos[0].value,
             accessToken,
         };
-        done(undefined, user);
+        return user;
     }
 }

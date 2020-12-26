@@ -1,17 +1,16 @@
 import { Controller, Get, NotFoundException, Req, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Request } from 'express';
 import { Configuration } from '../../../app.config';
+import { LocalAuthService } from '../../local-auth/service/local-auth.service';
 import { GoogleAuthGuard } from '../google-auth.guard';
-import { GoogleAuthService } from '../service/google-auth.service';
 
 @ApiTags('auth')
 @Controller('auth/google')
 export class GoogleAuthController {
     constructor(
-        private readonly appService: GoogleAuthService,
         private readonly configService: ConfigService<Configuration>,
+        private readonly localAuthService: LocalAuthService,
     ) {}
 
     @Get('')
@@ -23,11 +22,11 @@ export class GoogleAuthController {
     @Get('callback')
     @ApiOperation({ summary: 'Google authentication callback endpoint.' })
     @UseGuards(GoogleAuthGuard)
-    async googleAuthRedirect(@Req() req: Request) {
+    async googleAuthRedirect(@Req() req) {
         if (!this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED')) {
             throw new NotFoundException();
         }
 
-        return this.appService.googleLogin(req);
+        return this.localAuthService.login(req.user);
     }
 }
