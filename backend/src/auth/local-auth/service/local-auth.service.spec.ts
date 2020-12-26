@@ -1,4 +1,6 @@
+import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { UsersModule } from '../../../user/user.module';
 import { LocalAuthService } from './local-auth.service';
 
 describe('LocalAuthService', () => {
@@ -6,6 +8,7 @@ describe('LocalAuthService', () => {
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
+            imports: [UsersModule, JwtModule.register({ secret: 'very-secret' })],
             providers: [LocalAuthService],
         }).compile();
 
