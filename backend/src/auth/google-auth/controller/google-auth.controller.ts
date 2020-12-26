@@ -1,4 +1,4 @@
-import { Controller, Get, HttpException, HttpStatus, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Req, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
@@ -25,7 +25,7 @@ export class GoogleAuthController {
     @UseGuards(GoogleAuthGuard)
     async googleAuthRedirect(@Req() req: Request) {
         if (!this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED')) {
-            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+            throw new NotFoundException();
         }
 
         return this.appService.googleLogin(req);

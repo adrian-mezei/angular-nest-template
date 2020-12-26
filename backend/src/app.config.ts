@@ -70,7 +70,8 @@ export class Configuration {
     public static validate(environmentConfig: Record<string, unknown>) {
         const fileConfig = this.flattenObject(this.loadConfigurationFile());
 
-        const config = this.mergeConfigs([fileConfig, environmentConfig]);
+        let config = this.mergeConfigs([fileConfig, environmentConfig]);
+        config = this.fixBooleanStrings(config); // class-transformer turns 'false' string into true, issue: https://github.com/typestack/class-transformer/issues/306
 
         const validatedConfig = plainToClass(this, config, { enableImplicitConversion: true });
         const errors = validateSync(validatedConfig, { skipMissingProperties: false });
@@ -95,6 +96,18 @@ export class Configuration {
 
     private static loadConfigurationFile() {
         return yaml.load(readFileSync(join(__dirname, this.YAML_CONFIG_FILENAME), 'utf8'));
+    }
+
+    private static fixBooleanStrings(config: Record<string, unknown>) {
+        const fixedConfig = Object.assign({}, config);
+
+        for (const key in config) {
+            if (typeof config[key] === 'string' && (config[key] as string).toUpperCase() === 'FALSE') {
+                fixedConfig[key] = false;
+            }
+        }
+
+        return fixedConfig;
     }
 
     private static flattenObject(obj: any, delimiter = '__', parents: string[] = []) {
