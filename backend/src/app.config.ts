@@ -4,7 +4,7 @@ import * as yaml from 'js-yaml';
 import { plainToClass } from 'class-transformer';
 import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, ValidateIf, validateSync } from 'class-validator';
 import 'dotenv/config';
-import { LoggerFormat, LoggerLevel, LoggerTarget } from './app.logger';
+import { LoggerFormat, LoggerLevel, LoggerTarget } from './app.logger-config';
 
 export class AppConfig {
     private static readonly YAML_CONFIG_FILENAME = 'config.yml';

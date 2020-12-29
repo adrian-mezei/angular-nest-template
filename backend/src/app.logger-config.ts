@@ -20,7 +20,7 @@ export enum LoggerFormat {
     machine = 'machine',
 }
 
-export class LoggerConfiguration {
+export class AppLoggerConfig {
     loggerTarget: LoggerTarget;
     loggerLevel: LoggerLevel;
     loggerFormat: LoggerFormat;
@@ -74,7 +74,7 @@ export class LoggerConfiguration {
         return fileTransport;
     }
 
-    private getLogFormat() {
+    private getLogFormat(): winston.Logform.Format {
         let format = winston.format.timestamp();
 
         if (this.loggerFormat === LoggerFormat.human) {

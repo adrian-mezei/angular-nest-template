@@ -30,7 +30,7 @@ const testConfigurationFileContent = {
 describe('AppConfig', () => {
     describe('loadConfigurationFile', () => {
         const config = AppConfig['loadConfigurationFile']();
-        expect(config).not.toBe(undefined);
+        expect(config).toBeDefined();
     });
 
     describe('setupAndValidate', () => {
@@ -41,8 +41,8 @@ describe('AppConfig', () => {
             const environment = { SOMETHING_ELSE: 'test' };
             const config = AppConfig.setupAndValidate(environment);
 
-            expect(config.PORT).not.toBe(undefined);
-            expect((config as any).SOMETHING_ELSE).not.toBe(undefined);
+            expect(config.PORT).toBeDefined();
+            expect((config as any).SOMETHING_ELSE).toBeDefined();
         });
 
         it('should overwrite config file variables with environment variables', () => {
@@ -64,14 +64,14 @@ describe('AppConfig', () => {
             const environment = { LOGGER__COLORIZE: 'true' };
             const config = AppConfig.setupAndValidate(environment);
 
-            expect(config.LOGGER__COLORIZE).toBe(true);
+            expect(config.LOGGER__COLORIZE).toBeTruthy();
         });
 
         it('should convert environment variables boolean string "false" to boolean false', () => {
             const environment = { LOGGER__COLORIZE: 'false' };
             const config = AppConfig.setupAndValidate(environment);
 
-            expect(config.LOGGER__COLORIZE).toBe(false);
+            expect(config.LOGGER__COLORIZE).toBeFalsy();
         });
 
         it('should validate variables', () => {
@@ -112,8 +112,8 @@ describe('AppConfig', () => {
             expect(typeof config.a).toBe('boolean');
             expect(typeof config.b).toBe('boolean');
 
-            expect(config.a).toBe(false);
-            expect(config.b).toBe(false);
+            expect(config.a).toBeFalsy();
+            expect(config.b).toBeFalsy();
         });
 
         it('should do nothing to strings of boolean "true" values', () => {
@@ -123,7 +123,7 @@ describe('AppConfig', () => {
             expect(typeof config.b).toBe('boolean');
 
             expect(config.a).toBe('true');
-            expect(config.b).toBe(true);
+            expect(config.b).toBeTruthy();
         });
     });
 

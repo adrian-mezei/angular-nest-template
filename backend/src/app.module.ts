@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { WinstonModule } from 'nest-winston';
 import { AppConfig } from './app.config';
 import { AppController } from './app.controller';
-import { LoggerConfiguration } from './app.logger';
+import { AppLoggerConfig } from './app.logger-config';
 import { AppService } from './app.service';
 import { GoogleAuthModule } from './auth/google-auth/google-auth.module';
 import { LocalAuthModule } from './auth/local-auth/local-auth.module';
@@ -15,7 +15,7 @@ import { LocalAuthModule } from './auth/local-auth/local-auth.module';
             imports: [ConfigModule],
             inject: [ConfigService],
             useFactory: async (configService: ConfigService<AppConfig>) => ({
-                transports: new LoggerConfiguration(configService).getTransports(),
+                transports: new AppLoggerConfig(configService).getTransports(),
             }),
         }),
         LocalAuthModule,
