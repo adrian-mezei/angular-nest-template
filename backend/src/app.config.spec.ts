@@ -28,10 +28,15 @@ const testConfigurationFileContent = {
 };
 
 describe('AppConfig', () => {
-    // override config file loader
-    AppConfig['loadConfigurationFile'] = () => testConfigurationFileContent;
+    describe('loadConfigurationFile', () => {
+        const config = AppConfig['loadConfigurationFile']();
+        expect(config).not.toBe(undefined);
+    });
 
     describe('setupAndValidate', () => {
+        // override config file loader
+        AppConfig['loadConfigurationFile'] = () => testConfigurationFileContent;
+
         it('should use both config file and environment variables', () => {
             const environment = { SOMETHING_ELSE: 'test' };
             const config = AppConfig.setupAndValidate(environment);
