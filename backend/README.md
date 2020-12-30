@@ -13,7 +13,7 @@ $ npm install
 
 ## Configuration
 
-The application uses `dotenv` for environment variable loading and a local YAML file for default configuration values. The configurations are loaded from `src/configs/config.yml` file, `.env` file, `environment variables` in this order. The later override the earlier in case the same key exist in multiple locations. The config YAML file can be hierarchic while environment variables are flattened and double underscores ("\_\_") are the separators. A sample file for `.env` is provided as `.env-sample.env` that contains the keys that must be configured in the `.env` file.
+The application uses `dotenv` for environment variable loading and a local JSON file for default configuration values. The configurations are loaded from `src/configs/config.json` file, `.env` file, `environment variables` in this order. The later override the earlier in case the same key exist in multiple locations. The config JSON file can be hierarchic while environment variables are flattened and double underscores ("\_\_") are the separators. A sample file for `.env` is provided as `.env-sample.env` that contains the keys that must be configured in the `.env` file.
 
 ## Running the app
 
@@ -81,7 +81,7 @@ Unit and end-to-end tests are executed via [Jest](https://jestjs.io/).
 
 ## Logging
 
-The application uses `winston` to handle logging. Configurations can be edited in the config YAML file and through environment variables. Logs can be written to the console or to files, they can be colorized and formatted, and log levels can also be set.
+The application uses `winston` to handle logging. Configurations can be edited in the config JSON file and through environment variables. Logs can be written to the console or to files, they can be colorized and formatted, and log levels can also be set.
 
 ## Development
 

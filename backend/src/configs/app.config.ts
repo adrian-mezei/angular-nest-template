@@ -1,14 +1,10 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
-import * as yaml from 'js-yaml';
 import { plainToClass } from 'class-transformer';
 import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, ValidateIf, validateSync } from 'class-validator';
 import 'dotenv/config';
 import { LoggerFormat, LoggerLevel, LoggerTarget } from './app.logger-config';
+import configFile from './config.json';
 
 export class AppConfig {
-    private static readonly YAML_CONFIG_FILENAME = 'configs/config.yml';
-
     @IsNotEmpty()
     @IsString()
     HOST: string;
@@ -68,9 +64,9 @@ export class AppConfig {
     AUTH__JWT_SECRET: string;
 
     public static setupAndValidate(environmentConfig: Record<string, unknown>) {
-        const fileConfig = this.flattenObject(this.loadConfigurationFile());
+        const configFileFlattened = this.flattenObject(this.loadConfigurationFile());
 
-        let config = this.mergeConfigs([fileConfig, environmentConfig]);
+        let config = this.mergeConfigs([configFileFlattened, environmentConfig]);
         config = this.convertBooleanFalseStrings(config); // class-transformer turns 'false' string into true, issue: https://github.com/typestack/class-transformer/issues/306
 
         const validatedConfig = plainToClass(this, config, { enableImplicitConversion: true });
@@ -95,7 +91,7 @@ export class AppConfig {
     }
 
     private static loadConfigurationFile(): Record<string, unknown> {
-        return yaml.load(readFileSync(join(__dirname, this.YAML_CONFIG_FILENAME), 'utf8'));
+        return configFile;
     }
 
     private static convertBooleanFalseStrings(config: Record<string, unknown>): Record<string, unknown> {

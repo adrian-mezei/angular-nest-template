@@ -1,0 +1,24 @@
+{
+    "HOST": "localhost",
+    "PORT": 3000,
+    "BASE_PATH": "api",
+    "LOGGER": {
+        "TARGET": "console",
+        "LEVEL": "debug",
+        "FORMAT": "human",
+        "COLORIZE": true,
+        "FILE_OPTIONS": {
+            "FOLDER_PATH": "logs",
+            "MAX_SIZE_BYTES": 5000000,
+            "MAX_FILES_COUNT": 10
+        }
+    },
+    "AUTH": {
+        "JWT_SECRET": "",
+        "GOOGLE_OAUTH20": {
+            "ENABLED": false,
+            "GOOGLE_CLIENT_ID": "",
+            "GOOGLE_CLIENT_SECRET": ""
+        }
+    }
+}
