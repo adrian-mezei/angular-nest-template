@@ -7,7 +7,7 @@ import 'dotenv/config';
 import { LoggerFormat, LoggerLevel, LoggerTarget } from './app.logger-config';
 
 export class AppConfig {
-    private static readonly YAML_CONFIG_FILENAME = 'config.yml';
+    private static readonly YAML_CONFIG_FILENAME = 'configs/config.yml';
 
     @IsNotEmpty()
     @IsString()

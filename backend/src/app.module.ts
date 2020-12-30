@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { WinstonModule } from 'nest-winston';
-import { AppConfig } from './app.config';
+import { AppConfig } from './configs/app.config';
 import { AppController } from './app.controller';
-import { AppLoggerConfig } from './app.logger-config';
+import { AppLoggerConfig } from './configs/app.logger-config';
 import { AppService } from './app.service';
-import { GoogleAuthModule } from './auth/google-auth/google-auth.module';
-import { LocalAuthModule } from './auth/local-auth/local-auth.module';
+import { GoogleAuthModule } from './modules/auth/google-auth/google-auth.module';
+import { LocalAuthModule } from './modules/auth/local-auth/local-auth.module';
 
 @Module({
     imports: [

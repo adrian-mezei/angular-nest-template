@@ -13,7 +13,7 @@ $ npm install
 
 ## Configuration
 
-The application uses `dotenv` for environment variable loading and a local YAML file for default configuration values. The configurations are loaded from `src/config.yml` file, `.env` file, `environment variables` in this order. The later override the earlier in case the same key exist in multiple locations. The config YAML file can be hierarchic while environment variables are flattened and double underscores ("\_\_") are the separators. A sample file for `.env` is provided as `.env-sample.env` that contains the keys that must be configured in the `.env` file.
+The application uses `dotenv` for environment variable loading and a local YAML file for default configuration values. The configurations are loaded from `src/configs/config.yml` file, `.env` file, `environment variables` in this order. The later override the earlier in case the same key exist in multiple locations. The config YAML file can be hierarchic while environment variables are flattened and double underscores ("\_\_") are the separators. A sample file for `.env` is provided as `.env-sample.env` that contains the keys that must be configured in the `.env` file.
 
 ## Running the app
 
@@ -88,14 +88,14 @@ The application uses `winston` to handle logging. Configurations can be edited i
 ### Code scaffolding
 
 ```bash
-# generate a new module
-$ npm run m -- ice-cream
+# generate a new module named "ice-cream"
+$ npm run m -- modules/ice-cream
 
-# generate a new controller
-$ npm run c -- ice-cream
+# generate a new controller named "ice-cream" under the module named "ice-cream"
+$ npm run c -- modules/ice-cream/controller/ice-cream
 
-# generate a new service
-$ npm run s -- ice-cream
+# generate a new service named "ice-cream" under the module named "ice-cream"
+$ npm run s -- modules/ice-cream/service/ice-cream
 ```
 
 ### Recommended VSCode plugins

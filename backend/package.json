@@ -24,8 +24,8 @@
         "test:e2e": "jest --config ./e2e/jest-e2e.json",
         "test:all": "npm run cspell && npm run lint && npm run format && npm run test && npm run test:e2e",
         "m": "nest generate module",
-        "s": "nest generate service",
-        "c": "nest generate controller"
+        "c": "nest generate --flat controller",
+        "s": "nest generate --flat service"
     },
     "dependencies": {
         "@nestjs/common": "^7.5.1",
