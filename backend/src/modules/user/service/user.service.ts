@@ -8,14 +8,14 @@ export class UsersService {
     constructor() {
         this.users = [
             {
-                userId: 1,
+                id: 1,
                 email: 'mezei.adrian@gmail.com',
                 firstName: 'Adrián',
                 lastName: 'Mezei',
                 password: 'MySecretPw',
             },
             {
-                userId: 2,
+                id: 2,
                 email: 'mezei.adrian.dev@gmail.com',
                 firstName: 'Adrián Dev',
                 lastName: 'Mezei',

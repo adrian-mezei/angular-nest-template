@@ -2,6 +2,7 @@ import { Controller, Get, NotFoundException, Req, UseGuards } from '@nestjs/comm
 import { ConfigService } from '@nestjs/config';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AppConfig } from '../../../../configs/app.config';
+import { Public } from '../../jwt-auth/public-decorator';
 import { LocalAuthService } from '../../local-auth/service/local-auth.service';
 import { GoogleAuthGuard } from '../google-auth.guard';
 
@@ -13,12 +14,14 @@ export class GoogleAuthController {
         private readonly localAuthService: LocalAuthService,
     ) {}
 
+    @Public()
     @Get('')
     @ApiOperation({ summary: 'Google authentication endpoint.' })
     @UseGuards(GoogleAuthGuard)
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     async googleAuth() {}
 
+    @Public()
     @Get('callback')
     @ApiOperation({ summary: 'Google authentication callback endpoint.' })
     @UseGuards(GoogleAuthGuard)

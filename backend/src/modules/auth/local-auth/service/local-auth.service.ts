@@ -19,7 +19,7 @@ export class LocalAuthService {
     }
 
     async login(user: User) {
-        const payload = { email: user.email, sub: user.userId };
+        const payload = { sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),
         };
