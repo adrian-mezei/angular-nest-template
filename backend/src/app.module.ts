@@ -7,6 +7,7 @@ import { AppLoggerConfig } from './configs/app.logger-config';
 import { AppService } from './app.service';
 import { GoogleAuthModule } from './modules/auth/google-auth/google-auth.module';
 import { LocalAuthModule } from './modules/auth/local-auth/local-auth.module';
+import { JwtAuthModule } from './modules/auth/jwt-auth/jwt-auth.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { LocalAuthModule } from './modules/auth/local-auth/local-auth.module';
         }),
         LocalAuthModule,
         GoogleAuthModule,
+        JwtAuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],
