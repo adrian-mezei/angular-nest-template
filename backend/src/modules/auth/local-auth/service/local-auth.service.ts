@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../../../user/entities/user.entity';
+import { UserEntity } from '../../../user/entities/user.entity';
 import { UserService } from '../../../user/service/user.service';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class LocalAuthService {
         return undefined;
     }
 
-    async login(user: User) {
+    async login(user: UserEntity) {
         const payload = { sub: user.guid };
         return {
             access_token: this.jwtService.sign(payload),

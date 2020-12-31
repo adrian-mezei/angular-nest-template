@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class UserService {
-    private readonly users: User[];
+    private readonly users: UserEntity[];
 
     constructor() {
         this.users = [
@@ -26,15 +26,15 @@ export class UserService {
         ];
     }
 
-    async findOneByGuid(guid: string): Promise<User | undefined> {
+    async findOneByGuid(guid: string): Promise<UserEntity | undefined> {
         return this.users.find(user => user.guid === guid);
     }
 
-    async findOneByEmail(email: string): Promise<User | undefined> {
+    async findOneByEmail(email: string): Promise<UserEntity | undefined> {
         return this.users.find(user => user.email === email);
     }
 
-    async find(): Promise<User[]> {
+    async find(): Promise<UserEntity[]> {
         return this.users;
     }
 }

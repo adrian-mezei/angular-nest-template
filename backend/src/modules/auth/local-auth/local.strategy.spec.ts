@@ -2,9 +2,9 @@ import { UnauthorizedException } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppConfig } from '../../../configs/app.config';
-import { User } from '../../user/entities/user.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 import { UserService } from '../../user/service/user.service';
-import { UsersModule } from '../../user/user.module';
+import { UserModule } from '../../user/user.module';
 import { LocalAuthModule } from './local-auth.module';
 import { LocalStrategy } from './local.strategy';
 
@@ -16,7 +16,7 @@ describe('LocalStrategy', () => {
             imports: [
                 LocalAuthModule,
                 ConfigModule.forRoot({ validate: config => AppConfig.setupAndValidate(config) }),
-                UsersModule,
+                UserModule,
             ],
             providers: [LocalStrategy],
         }).compile();
@@ -41,7 +41,7 @@ describe('LocalStrategy', () => {
     });
 
     it('should return existing user if email and password matches', async () => {
-        const user: User = await localStrategy.validate('john.doe@test.com', 'MySecretPw');
+        const user: UserEntity = await localStrategy.validate('john.doe@test.com', 'MySecretPw');
 
         expect(user).toBeDefined();
         expect(user.id).toBe(1);

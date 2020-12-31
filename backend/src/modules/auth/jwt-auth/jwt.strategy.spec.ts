@@ -2,7 +2,7 @@ import { UnauthorizedException } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppConfig } from '../../../configs/app.config';
-import { User } from '../../user/entities/user.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 import { UserService } from '../../user/service/user.service';
 import { JwtStrategy } from './jwt.strategy';
 import { JwtAuthService } from './service/jwt-auth.service';
@@ -37,7 +37,7 @@ describe('JwtStrategy', () => {
 
     it('should return existing user by guid', async () => {
         const payload = { sub: '1a43d3d9-9bde-441d-ac60-372e34789c2c' };
-        const user: User = await jwtStrategy.validate(payload);
+        const user: UserEntity = await jwtStrategy.validate(payload);
 
         expect(user).toBeDefined();
         expect(user.id).toBe(1);

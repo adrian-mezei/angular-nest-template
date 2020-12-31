@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppConfig } from '../../../../configs/app.config';
 import { UserService } from '../../../user/service/user.service';
-import { UsersModule } from '../../../user/user.module';
+import { UserModule } from '../../../user/user.module';
 import { LocalAuthModule } from '../../local-auth/local-auth.module';
 import { LocalAuthService } from '../../local-auth/service/local-auth.service';
 import { GoogleAuthController } from './google-auth.controller';
@@ -21,7 +21,7 @@ describe('GoogleAuthController', () => {
 
             const module: TestingModule = await Test.createTestingModule({
                 imports: [
-                    UsersModule,
+                    UserModule,
                     LocalAuthModule,
                     JwtModule.register({ secret: 'very-secret' }),
                     ConfigModule.forRoot({
@@ -46,7 +46,7 @@ describe('GoogleAuthController', () => {
 
             const module: TestingModule = await Test.createTestingModule({
                 imports: [
-                    UsersModule,
+                    UserModule,
                     LocalAuthModule,
                     JwtModule.register({ secret: 'very-secret' }),
                     ConfigModule.forRoot({
@@ -75,7 +75,7 @@ describe('GoogleAuthController', () => {
 
             const module: TestingModule = await Test.createTestingModule({
                 imports: [
-                    UsersModule,
+                    UserModule,
                     LocalAuthModule,
                     JwtModule.register({ secret: 'very-secret' }),
                     ConfigModule.forRoot({
@@ -111,7 +111,7 @@ describe('GoogleAuthController', () => {
 
             const module: TestingModule = await Test.createTestingModule({
                 imports: [
-                    UsersModule,
+                    UserModule,
                     LocalAuthModule,
                     JwtModule.register({ secret: 'very-secret' }),
                     ConfigModule.forRoot({

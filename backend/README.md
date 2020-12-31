@@ -70,6 +70,9 @@ $ npm run test
 # run unit tests and watch file changes
 $ npm run test:watch
 
+# run unit tests and watch file changes for a single file
+$ npm run test:watch -- ice-cream.controller.spec.ts
+
 # run end-to-end tests
 $ npm run test:e2e
 
