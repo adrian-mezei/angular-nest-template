@@ -18,14 +18,19 @@ export class GoogleAuthController {
     @Get('')
     @ApiOperation({ summary: 'Google authentication endpoint.' })
     @UseGuards(GoogleAuthGuard)
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    async googleAuth() {}
+    async googleAuth() {
+        if (!this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED')) {
+            throw new NotFoundException();
+        }
+    }
 
     @Public()
     @Get('callback')
     @ApiOperation({ summary: 'Google authentication callback endpoint.' })
     @UseGuards(GoogleAuthGuard)
-    async googleAuthRedirect(@Req() req) {
+    async googleAuthCallback(@Req() req) {
+        //console.log('======================================');
+        //console.log(this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED'));
         if (!this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED')) {
             throw new NotFoundException();
         }

@@ -8,7 +8,7 @@ import { Public } from '../../jwt-auth/public-decorator';
 @ApiTags('auth')
 @Controller('auth/local')
 export class LocalAuthController {
-    constructor(private readonly authService: LocalAuthService) {}
+    constructor(private readonly localAuthService: LocalAuthService) {}
 
     @Public()
     @Post('login')
@@ -17,6 +17,6 @@ export class LocalAuthController {
     @UseGuards(LocalAuthGuard)
     @HttpCode(200)
     async login(@Request() req) {
-        return this.authService.login(req.user);
+        return this.localAuthService.login(req.user);
     }
 }

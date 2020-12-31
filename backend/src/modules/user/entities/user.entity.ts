@@ -4,6 +4,12 @@ export class User {
     @ApiProperty({ example: 1, description: 'The id of the User.' })
     id: number;
 
+    @ApiProperty({
+        example: 'b5578a35-60e0-47b9-9631-5387ca437aab',
+        description: 'The globally unique id of the User.',
+    })
+    guid: string;
+
     @ApiProperty({ example: 'example@mycompany.com', description: 'The email of the User.' })
     email: string;
 

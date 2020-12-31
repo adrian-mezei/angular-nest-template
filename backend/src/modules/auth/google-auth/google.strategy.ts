@@ -1,15 +1,18 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from '../../../configs/app.config';
-import { UsersService } from '../../user/service/user.service';
+import { GoogleAuthService } from './service/google-auth.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     private readonly logger = new Logger(GoogleStrategy.name);
 
-    constructor(private readonly configService: ConfigService<AppConfig>, private readonly usersService: UsersService) {
+    constructor(
+        readonly configService: ConfigService<AppConfig>,
+        private readonly googleAuthService: GoogleAuthService,
+    ) {
         super({
             clientID: configService.get<string>('AUTH__GOOGLE_OAUTH20__CLIENT_ID'),
             clientSecret: configService.get<string>('AUTH__GOOGLE_OAUTH20__CLIENT_SECRET'),
@@ -19,7 +22,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     }
 
     async validate(accessToken: string, refreshToken: any, profile: any): Promise<any> {
-        const user = await this.usersService.findOne(profile.emails[0].value);
+        const user = await this.googleAuthService.validateUser(profile.emails[0].value);
+        if (!user) {
+            throw new UnauthorizedException();
+        }
+
         // TODO Update user data if it is empty.
 
         /*const user = {

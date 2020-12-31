@@ -29,8 +29,10 @@ const testConfigurationFileContent = {
 
 describe('AppConfig', () => {
     describe('loadConfigurationFile', () => {
-        const config = AppConfig['loadConfigurationFile']();
-        expect(config).toBeDefined();
+        it('should be defined', () => {
+            const config = AppConfig['loadConfigurationFile']();
+            expect(config).toBeDefined();
+        });
     });
 
     describe('setupAndValidate', () => {

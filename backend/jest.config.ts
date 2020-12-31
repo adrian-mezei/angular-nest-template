@@ -11,6 +11,12 @@ export default async (): Promise<Config.InitialOptions> => {
         },
         collectCoverageFrom: ['**/*.(t|j)s'],
         coverageDirectory: '../coverage',
-        coveragePathIgnorePatterns: ['/node_modules/', '.*\\.module\\.ts$'],
+        coveragePathIgnorePatterns: [
+            '/node_modules/',
+            '.*\\.module\\.ts$',
+            '.*\\.entity\\.ts$',
+            'main\\.ts',
+            'jwt-auth\\.guard\\.ts',
+        ],
     };
 };

@@ -65,7 +65,7 @@ describe('AppLogger', () => {
                 LOGGER__FORMAT: 'machine',
             });
             const formatMachine = appLoggerConfigMachine['getLogFormat']();
-            const formattedMachine: any = formatMachine.transform({ level: 'error', message: 'helo' });
+            const formattedMachine: any = formatMachine.transform({ level: 'error', message: 'hello' });
 
             expect(formattedMachine.timestamp).toBeDefined();
         });
@@ -77,7 +77,7 @@ describe('AppLogger', () => {
                 LOGGER__FORMAT: 'human',
             });
             const formatHuman = appLoggerConfigHuman['getLogFormat']();
-            const formattedHuman: any = formatHuman.transform({ level: 'error', message: 'helo' });
+            const formattedHuman: any = formatHuman.transform({ level: 'error', message: 'hello' });
 
             expect(formattedHuman.timestamp).toBeDefined();
         });
@@ -90,7 +90,7 @@ describe('AppLogger', () => {
             });
 
             const format = appLoggerConfig['getLogFormat']();
-            const formatted: any = format.transform({ level: 'error', message: 'helo' });
+            const formatted: any = format.transform({ level: 'error', message: 'hello' });
             const messageString = formatted[Object.getOwnPropertySymbols(formatted)[0]];
 
             expect(() => JSON.parse(messageString)).not.toThrowError();
@@ -104,7 +104,7 @@ describe('AppLogger', () => {
             });
 
             const format = appLoggerConfig['getLogFormat']();
-            const formatted: any = format.transform({ level: 'error', message: 'helo' });
+            const formatted: any = format.transform({ level: 'error', message: 'hello' });
             const messageString = formatted[Object.getOwnPropertySymbols(formatted)[0]];
 
             expect(() => JSON.parse(messageString)).toThrowError();
@@ -119,7 +119,7 @@ describe('AppLogger', () => {
             });
 
             const format = appLoggerConfig['getLogFormat']();
-            const formatted: any = format.transform({ level: 'error', message: 'helo' });
+            const formatted: any = format.transform({ level: 'error', message: 'hello' });
             const messageString: string = JSON.stringify(formatted[Object.getOwnPropertySymbols(formatted)[0]]);
 
             expect(messageString.substr(0, 7)).toBe('"\\u001b');
@@ -134,7 +134,7 @@ describe('AppLogger', () => {
             });
 
             const format = appLoggerConfig['getLogFormat']();
-            const formatted: any = format.transform({ level: 'error', message: 'helo' });
+            const formatted: any = format.transform({ level: 'error', message: 'hello' });
             const messageString: string = JSON.stringify(formatted[Object.getOwnPropertySymbols(formatted)[0]]);
 
             expect(messageString.substr(0, 14)).toBe('"[NestWinston]');

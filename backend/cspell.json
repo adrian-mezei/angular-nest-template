@@ -22,7 +22,9 @@
     "flagWords": ["hte"],
     // Specify paths/files to ignore.
     "ignorePaths": [
+        "cspell.json",
         "node_modules", // this will ignore anything the node_modules directory
+        ".prettierrc",
         "coverage",
         "dist",
         "package-lock.json",

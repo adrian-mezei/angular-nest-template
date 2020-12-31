@@ -74,6 +74,7 @@ export class AppLoggerConfig {
         return fileTransport;
     }
 
+    // cspell:disable-next-line
     private getLogFormat(): winston.Logform.Format {
         let format = winston.format.timestamp();
 

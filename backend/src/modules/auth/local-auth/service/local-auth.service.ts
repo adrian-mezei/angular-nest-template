@@ -1,25 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../../../user/entities/user.entity';
-import { UsersService } from '../../../user/service/user.service';
+import { UserService } from '../../../user/service/user.service';
 
 @Injectable()
 export class LocalAuthService {
-    constructor(private usersService: UsersService, private jwtService: JwtService) {}
+    constructor(private readonly userService: UserService, private readonly jwtService: JwtService) {}
 
     async validateUser(email: string, pass: string): Promise<any> {
-        const user = await this.usersService.findOne(email);
+        const user = await this.userService.findOneByEmail(email);
         // TODO bcrypt
         if (user?.password === pass) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { password, ...result } = user; // remove the password
             return result;
         }
-        return null;
+        return undefined;
     }
 
     async login(user: User) {
-        const payload = { sub: user.id };
+        const payload = { sub: user.guid };
         return {
             access_token: this.jwtService.sign(payload),
         };
