@@ -35,18 +35,20 @@ describe('JwtStrategy', () => {
         expect(jwtStrategy).toBeDefined();
     });
 
-    it('should return existing user by guid', async () => {
-        const payload = { sub: '1a43d3d9-9bde-441d-ac60-372e34789c2c' };
-        const user: UserEntity = await jwtStrategy.validate(payload);
+    describe('validate', () => {
+        it('should return existing user by guid', async () => {
+            const payload = { sub: '1a43d3d9-9bde-441d-ac60-372e34789c2c' };
+            const user: UserEntity = await jwtStrategy.validate(payload);
 
-        expect(user).toBeDefined();
-        expect(user.id).toBe(1);
-    });
+            expect(user).toBeDefined();
+            expect(user.id).toBe(1);
+        });
 
-    it('should throw unauthorized exception if user email is not found', async () => {
-        const payload = { guid: 'a3bf5a0d-6e4f-4762-89ab-341af8aa2feb' };
-        const validate = () => jwtStrategy.validate(payload);
+        it('should throw unauthorized exception if user email is not found', async () => {
+            const payload = { guid: 'a3bf5a0d-6e4f-4762-89ab-341af8aa2feb' };
+            const validate = () => jwtStrategy.validate(payload);
 
-        expect(validate).rejects.toEqual(new UnauthorizedException());
+            expect(validate).rejects.toEqual(new UnauthorizedException());
+        });
     });
 });

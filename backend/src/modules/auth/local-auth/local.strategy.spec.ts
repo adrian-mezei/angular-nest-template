@@ -40,22 +40,24 @@ describe('LocalStrategy', () => {
         expect(localStrategy).toBeDefined();
     });
 
-    it('should return existing user if email and password matches', async () => {
-        const user: UserEntity = await localStrategy.validate('john.doe@test.com', 'MySecretPw');
+    describe('validate', () => {
+        it('should return existing user if email and password matches', async () => {
+            const user: UserEntity = await localStrategy.validate('john.doe@test.com', 'MySecretPw');
 
-        expect(user).toBeDefined();
-        expect(user.id).toBe(1);
-    });
+            expect(user).toBeDefined();
+            expect(user.id).toBe(1);
+        });
 
-    it('should throw unauthorized exception if user email is not found', async () => {
-        const validate = () => localStrategy.validate('missing@test.com', 'MySecretPw');
+        it('should throw unauthorized exception if user email is not found', async () => {
+            const validate = () => localStrategy.validate('missing@test.com', 'MySecretPw');
 
-        expect(validate).rejects.toEqual(new UnauthorizedException());
-    });
+            expect(validate).rejects.toEqual(new UnauthorizedException());
+        });
 
-    it('should throw unauthorized exception if user email is found but passwords do not match', async () => {
-        const validate = () => localStrategy.validate('john.doe@test.com', 'NotThePassword');
+        it('should throw unauthorized exception if user email is found but passwords do not match', async () => {
+            const validate = () => localStrategy.validate('john.doe@test.com', 'NotThePassword');
 
-        expect(validate).rejects.toEqual(new UnauthorizedException());
+            expect(validate).rejects.toEqual(new UnauthorizedException());
+        });
     });
 });

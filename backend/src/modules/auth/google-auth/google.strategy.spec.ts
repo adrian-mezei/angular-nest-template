@@ -35,30 +35,32 @@ describe('GoogleStrategy', () => {
         expect(googleStrategy).toBeDefined();
     });
 
-    it('should return existing user by email', async () => {
-        const profile = {
-            emails: [
-                {
-                    value: 'john.doe@test.com',
-                },
-            ],
-        };
-        const user: UserEntity = await googleStrategy.validate('', undefined, profile);
+    describe('validate', () => {
+        it('should return existing user by email', async () => {
+            const profile = {
+                emails: [
+                    {
+                        value: 'john.doe@test.com',
+                    },
+                ],
+            };
+            const user: UserEntity = await googleStrategy.validate('', undefined, profile);
 
-        expect(user).toBeDefined();
-        expect(user.id).toBe(1);
-    });
+            expect(user).toBeDefined();
+            expect(user.id).toBe(1);
+        });
 
-    it('should throw unauthorized exception if user email is not found', async () => {
-        const profile = {
-            emails: [
-                {
-                    value: 'missing@test.com',
-                },
-            ],
-        };
-        const validate = () => googleStrategy.validate('', undefined, profile);
+        it('should throw unauthorized exception if user email is not found', async () => {
+            const profile = {
+                emails: [
+                    {
+                        value: 'missing@test.com',
+                    },
+                ],
+            };
+            const validate = () => googleStrategy.validate('', undefined, profile);
 
-        expect(validate).rejects.toEqual(new UnauthorizedException());
+            expect(validate).rejects.toEqual(new UnauthorizedException());
+        });
     });
 });
