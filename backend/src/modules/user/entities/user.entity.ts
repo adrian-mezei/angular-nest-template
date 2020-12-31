@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import * as bcrypt from 'bcrypt';
 
 export class UserEntity {
     @ApiProperty({ example: 1, description: 'The id of the User.' })
@@ -21,4 +22,15 @@ export class UserEntity {
 
     @ApiProperty({ example: 'secretPassword', description: 'The password of the User.' })
     password: string;
+
+    // TODO uncomment if TypeORM is in place.
+    // @BeforeInsert()
+    /*async hashPassword(): Promise<void> {
+        this.password = await bcrypt.hash(this.password, 10);
+    }
+
+    // TODO This should be used for password comparison once TypeORM is in place. 
+    async comparePassword(attempt: string): Promise<boolean> {
+        return await bcrypt.compare(attempt, this.password);
+    }*/
 }
