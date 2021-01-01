@@ -17,6 +17,8 @@ The application uses `dotenv` for environment variable loading and a local JSON 
 
 ## Running the app
 
+The application is configured to start in debugging mode and watch file changes and recompile changes automatically.
+
 ```bash
 # development with debugging and file watching
 $ npm run start
@@ -25,27 +27,27 @@ $ npm run start
 $ npm run start:prod
 ```
 
-The application is configured to start in debugging mode and watch file changes and recompile changes automatically.
-
 ## Build
+
+The build artifacts will be stored in the `dist/` directory.
 
 ```bash
 # build the project
 $ npm run build
 ```
 
-The build artifacts will be stored in the `dist/` directory.
-
 ## Lint
+
+The linting is executed via [ESLint](https://eslint.org/).
 
 ```bash
 # run the linter
 $ npm run lint
 ```
 
-The linting is executed via [ESLint](https://eslint.org/).
-
 ## Format
+
+Formatting is executed via [Prettier](https://prettier.io/).
 
 ```bash
 # run the formatter
@@ -54,14 +56,16 @@ $ npm run format
 
 ## Spell check
 
+Code spell checking is performed by [cspell](https://github.com/streetsidesoftware/cspell#readme).
+
 ```bash
 # run the spell checker
 $ npm run cspell
 ```
 
-Formatting is executed via [Prettier](https://prettier.io/).
-
 ## Tests
+
+Unit and end-to-end tests are executed via [Jest](https://jestjs.io/).
 
 ```bash
 # run unit tests
@@ -80,11 +84,9 @@ $ npm run test:e2e
 $ npm run test:all
 ```
 
-Unit and end-to-end tests are executed via [Jest](https://jestjs.io/).
-
 ## Logging
 
-The application uses `winston` to handle logging. Configurations can be edited in the config JSON file and through environment variables. Logs can be written to the console or to files, they can be colorized and formatted, and log levels can also be set.
+The application uses [winston](https://github.com/winstonjs/winston) to handle logging. Configurations can be edited in the config JSON file and through environment variables. Logs can be written to the console or to files, they can be colorized and formatted, and log levels can also be set.
 
 ## Development
 
@@ -107,4 +109,4 @@ $ npm run s -- modules/ice-cream/service/ice-cream
 -   [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for consistent code formatting.
 -   [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin) for tslint rule validation.
 -   [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree) for TODO highlight and collection.
--   [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+-   [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) for code spell checking
