@@ -14,6 +14,7 @@ export class UserService {
                 firstName: 'Adrián',
                 lastName: 'Mezei',
                 password: 'MySecretPw',
+                roles: [Role.USER],
             },
             {
                 id: 2,
@@ -22,6 +23,7 @@ export class UserService {
                 firstName: 'Adrián Dev',
                 lastName: 'Mezei',
                 password: 'MyOtherSecretPw',
+                roles: [Role.ADMIN],
             },
         ];
     }

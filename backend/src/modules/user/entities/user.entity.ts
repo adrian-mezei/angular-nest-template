@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
+import { Role } from '../../role/role.enum';
 
 export class UserEntity {
     @ApiProperty({ example: 1, description: 'The id of the User.' })
@@ -22,6 +23,9 @@ export class UserEntity {
 
     @ApiProperty({ example: 'secretPassword', description: 'The password of the User.' })
     password: string;
+
+    @ApiProperty({ example: 'USER', description: 'The roles of the User.' })
+    roles: Role[];
 
     // TODO uncomment if TypeORM is in place.
     // @BeforeInsert()
