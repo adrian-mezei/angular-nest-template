@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { GoogleAuthModule } from './modules/auth/google-auth/google-auth.module';
 import { LocalAuthModule } from './modules/auth/local-auth/local-auth.module';
 import { JwtAuthModule } from './modules/auth/jwt-auth/jwt-auth.module';
+import { RoleModule } from './modules/role/role.module';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { JwtAuthModule } from './modules/auth/jwt-auth/jwt-auth.module';
         LocalAuthModule,
         GoogleAuthModule,
         JwtAuthModule,
+        RoleModule,
     ],
     controllers: [AppController],
     providers: [AppService],

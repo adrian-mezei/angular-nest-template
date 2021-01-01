@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Role } from '../../role/role.enum';
 import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
@@ -26,6 +27,10 @@ export class UserService {
                 roles: [Role.ADMIN],
             },
         ];
+    }
+
+    async findOne(id: number): Promise<UserEntity | undefined> {
+        return this.users.find(user => user.id === id);
     }
 
     async findOneByGuid(guid: string): Promise<UserEntity | undefined> {
