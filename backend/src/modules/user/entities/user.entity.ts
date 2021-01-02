@@ -36,7 +36,7 @@ export class User {
     email: string;
 
     @ApiProperty({ example: 'John', description: 'The first name of the User.' })
-    @Column({ name: 'asd' })
+    @Column()
     firstName: string;
 
     @ApiProperty({ example: 'Doe', description: 'The last name of the User.' })

@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class UserAndRoleEntitiesAdded1609555324872 implements MigrationInterface {
-    name = 'UserAndRoleEntitiesAdded1609555324872';
+export class UserAndRoleEntitiesAdded1609612393471 implements MigrationInterface {
+    name = 'UserAndRoleEntitiesAdded1609612393471';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -19,7 +19,7 @@ export class UserAndRoleEntitiesAdded1609555324872 implements MigrationInterface
                 "id" SERIAL NOT NULL,
                 "guid" character varying NOT NULL,
                 "email" character varying NOT NULL,
-                "asd" character varying NOT NULL,
+                "firstName" character varying NOT NULL,
                 "lastName" character varying NOT NULL,
                 "password" character varying NOT NULL,
                 "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
