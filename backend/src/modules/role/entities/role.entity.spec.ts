@@ -1,8 +1,8 @@
-import { RoleEntity } from './role.entity';
+import { Role } from './role.entity';
 
-describe('RoleEntity', () => {
+describe('Role', () => {
     it('should be defined', () => {
-        const user = new RoleEntity();
+        const user = new Role();
         expect(user).toBeDefined();
     });
 });

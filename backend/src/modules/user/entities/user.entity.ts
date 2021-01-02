@@ -1,21 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
+import * as uuid from 'uuid';
 import {
     BeforeInsert,
     Column,
     CreateDateColumn,
     DeleteDateColumn,
     Entity,
-    Generated,
     JoinTable,
     ManyToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { RoleEntity } from '../../role/entities/role.entity';
+import { Role } from '../../role/entities/role.entity';
 
 @Entity()
-export class UserEntity {
+export class User {
     @ApiProperty({ example: 1, description: 'The id of the User.' })
     @PrimaryGeneratedColumn()
     id: number;
@@ -27,7 +27,6 @@ export class UserEntity {
     @Column({
         unique: true,
     })
-    @Generated('uuid')
     guid: string;
 
     @ApiProperty({ example: 'example@mycompany.com', description: 'The email of the User.' })
@@ -49,9 +48,9 @@ export class UserEntity {
     password: string;
 
     @ApiProperty({ example: 'USER', description: 'The roles of the User.' })
-    @ManyToMany(() => RoleEntity)
+    @ManyToMany(() => Role)
     @JoinTable()
-    roles: RoleEntity[];
+    roles: Role[];
 
     // TODO update example value
     @CreateDateColumn()
@@ -70,6 +69,11 @@ export class UserEntity {
     @BeforeInsert()
     async hashPassword(): Promise<void> {
         this.password = await bcrypt.hash(this.password, 10);
+    }
+
+    @BeforeInsert()
+    async generateGuid(): Promise<void> {
+        this.guid = uuid.v4();
     }
 
     async comparePassword(attempt: string): Promise<boolean> {

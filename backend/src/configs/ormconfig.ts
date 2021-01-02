@@ -7,7 +7,7 @@ async function getTypeOrmConfig() {
     const module = await Test.createTestingModule({
         imports: [
             ConfigModule.forRoot({
-                validate: config => AppConfig.setupAndValidate(process.env),
+                validate: config => AppConfig.setupAndValidate(config),
             }),
         ],
     }).compile();

@@ -2,7 +2,7 @@ import { UnauthorizedException } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppConfig } from '../../../configs/app.config';
-import { UserEntity } from '../../user/entities/user.entity';
+import { User } from '../../user/entities/user.entity';
 import { UserService } from '../../user/service/user.service';
 import { GoogleStrategy } from './google.strategy';
 import { GoogleAuthService } from './service/google-auth.service';
@@ -44,7 +44,7 @@ describe('GoogleStrategy', () => {
                     },
                 ],
             };
-            const user: UserEntity = await googleStrategy.validate('', undefined, profile);
+            const user: User = await googleStrategy.validate('', undefined, profile);
 
             expect(user).toBeDefined();
             expect(user.id).toBe(1);

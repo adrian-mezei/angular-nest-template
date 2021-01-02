@@ -18,6 +18,7 @@
         "build": "nest build",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
         "format": "prettier --write .",
+        "format:files": "prettier --write",
         "cspell": "cspell \"**/*\"",
         "test": "jest --coverage",
         "test:watch": "jest --watch",
@@ -28,7 +29,8 @@
         "s": "nest generate --flat service",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -f ./src/configs/ormconfig.ts",
         "migration:create": "npm run typeorm -- migration:create -n",
-        "migration:generate": "npm run typeorm -- migration:generate -n",
+        "migration:generate": "npm run typeorm -- migration:generate --pretty -n",
+        "postmigration:generate": "npm run format:files src/migrations/*",
         "migration:run": "npm run typeorm -- migration:run",
         "migration:revert": "npm run typeorm -- migration:revert"
     },
@@ -56,6 +58,7 @@
         "source-map-support": "^0.5.19",
         "swagger-ui-express": "^4.1.6",
         "typeorm": "^0.2.29",
+        "uuid": "^8.3.2",
         "winston": "^3.3.3"
     },
     "devDependencies": {

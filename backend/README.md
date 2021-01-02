@@ -103,6 +103,28 @@ $ npm run c -- modules/ice-cream/controller/ice-cream
 $ npm run s -- modules/ice-cream/service/ice-cream
 ```
 
+### Database migrations
+
+The application uses [TypeORM](https://typeorm.io/) for
+object–relational mapping. It can also be used for migration generation and execution. There are a few preconstructed npm scripts for these:
+
+```bash
+# use typeorm
+$ npm run typeorm
+
+# create an empty migration template
+$ npm run migration:create -- IceCreamEntitiesAdded
+
+# auto-generate a migration for the differences between the  database and code
+$ npm run migration:generate -- IceCreamEntitiesAdded
+
+# execute pending migrations
+$ npm run migration:run
+
+# revert a migration
+$ npm run migration:revert
+```
+
 ### Recommended VSCode plugins
 
 -   [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv) for `.env` file syntax highlight.

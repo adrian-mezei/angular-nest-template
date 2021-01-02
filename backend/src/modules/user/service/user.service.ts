@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Role } from '../../role/role.enum';
-import { UserEntity } from '../entities/user.entity';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UserService {
     constructor(
-        @InjectRepository(UserEntity)
-        private usersRepository: Repository<UserEntity>,
+        @InjectRepository(User)
+        private usersRepository: Repository<User>,
     ) {
         /*this.users = [
             {
@@ -32,19 +31,19 @@ export class UserService {
         ];*/
     }
 
-    findOne(id: number): Promise<UserEntity | undefined> {
+    findOne(id: number): Promise<User | undefined> {
         return this.usersRepository.findOne(id);
     }
 
-    async findOneByGuid(guid: string): Promise<UserEntity | undefined> {
+    async findOneByGuid(guid: string): Promise<User | undefined> {
         return this.usersRepository.findOne({ where: { guid } });
     }
 
-    async findOneByEmail(email: string): Promise<UserEntity | undefined> {
+    async findOneByEmail(email: string): Promise<User | undefined> {
         return this.usersRepository.findOne({ where: { email } });
     }
 
-    find(): Promise<UserEntity[]> {
+    find(): Promise<User[]> {
         return this.usersRepository.find();
     }
 }
