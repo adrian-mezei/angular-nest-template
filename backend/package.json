@@ -25,7 +25,12 @@
         "test:all": "npm run cspell && npm run lint && npm run format && npm run test && npm run test:e2e",
         "m": "nest generate module",
         "c": "nest generate --flat controller",
-        "s": "nest generate --flat service"
+        "s": "nest generate --flat service",
+        "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -f ./src/configs/ormconfig.ts",
+        "migration:create": "npm run typeorm -- migration:create -n",
+        "migration:generate": "npm run typeorm -- migration:generate -n",
+        "migration:run": "npm run typeorm -- migration:run",
+        "migration:revert": "npm run typeorm -- migration:revert"
     },
     "dependencies": {
         "@nestjs/common": "^7.5.1",
@@ -35,6 +40,7 @@
         "@nestjs/passport": "^7.1.5",
         "@nestjs/platform-express": "^7.5.1",
         "@nestjs/swagger": "^4.7.8",
+        "@nestjs/typeorm": "^7.1.5",
         "bcrypt": "^5.0.0",
         "class-transformer": "^0.3.1",
         "class-validator": "^0.12.2",
@@ -44,11 +50,12 @@
         "passport-google-oauth20": "^2.0.0",
         "passport-jwt": "^4.0.0",
         "passport-local": "^1.0.0",
+        "pg": "^8.5.1",
         "reflect-metadata": "^0.1.13",
-        "rimraf": "^3.0.2",
         "rxjs": "^6.6.3",
         "source-map-support": "^0.5.19",
         "swagger-ui-express": "^4.1.6",
+        "typeorm": "^0.2.29",
         "winston": "^3.3.3"
     },
     "devDependencies": {
@@ -63,6 +70,7 @@
         "@types/passport-google-oauth20": "^2.0.4",
         "@types/passport-jwt": "^3.0.3",
         "@types/passport-local": "^1.0.33",
+        "@types/pg": "^7.14.7",
         "@types/source-map-support": "^0.5.3",
         "@types/supertest": "^2.0.10",
         "@types/swagger-ui-express": "^4.1.2",
@@ -75,10 +83,11 @@
         "eslint-plugin-prettier": "^3.1.4",
         "jest": "^26.6.3",
         "prettier": "^2.2.0",
+        "rimraf": "^3.0.2",
         "supertest": "^6.0.0",
         "ts-jest": "^26.4.3",
         "ts-loader": "^8.0.8",
-        "ts-node": "^9.0.0",
+        "ts-node": "^9.1.1",
         "tsconfig-paths": "^3.9.0",
         "typescript": "^4.0.5"
     }

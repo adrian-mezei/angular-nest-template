@@ -9,6 +9,9 @@ import { GoogleAuthModule } from './modules/auth/google-auth/google-auth.module'
 import { LocalAuthModule } from './modules/auth/local-auth/local-auth.module';
 import { JwtAuthModule } from './modules/auth/jwt-auth/jwt-auth.module';
 import { RoleModule } from './modules/role/role.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
     imports: [
@@ -20,12 +23,20 @@ import { RoleModule } from './modules/role/role.module';
                 transports: new AppLoggerConfig(configService).getTransports(),
             }),
         }),
+        TypeOrmModule.forRootAsync({
+            imports: [ConfigModule],
+            inject: [ConfigService],
+            useFactory: async (configService: ConfigService<AppConfig>) => AppConfig.getTypeOrmConfig(configService),
+        }),
         LocalAuthModule,
         GoogleAuthModule,
         JwtAuthModule,
         RoleModule,
+        UserModule,
     ],
     controllers: [AppController],
     providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+    constructor(private connection: Connection) {}
+}

@@ -20,5 +20,12 @@
             "GOOGLE_CLIENT_ID": "",
             "GOOGLE_CLIENT_SECRET": ""
         }
+    },
+    "DB": {
+        "HOST": "localhost",
+        "PORT": "5432",
+        "USERNAME": "",
+        "PASSWORD": "",
+        "DATABASE_NAME": "angular-nest-template"
     }
 }

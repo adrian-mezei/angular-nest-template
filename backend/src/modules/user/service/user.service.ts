@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Role } from '../../role/role.enum';
 import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class UserService {
-    private readonly users: UserEntity[];
-
-    constructor() {
-        this.users = [
+    constructor(
+        @InjectRepository(UserEntity)
+        private usersRepository: Repository<UserEntity>,
+    ) {
+        /*this.users = [
             {
                 id: 1,
                 guid: 'abac73c3-b1a5-4afd-8ecd-e913d2599b9f',
@@ -26,22 +29,22 @@ export class UserService {
                 password: 'MyOtherSecretPw',
                 roles: [Role.ADMIN],
             },
-        ];
+        ];*/
     }
 
-    async findOne(id: number): Promise<UserEntity | undefined> {
-        return this.users.find(user => user.id === id);
+    findOne(id: number): Promise<UserEntity | undefined> {
+        return this.usersRepository.findOne(id);
     }
 
     async findOneByGuid(guid: string): Promise<UserEntity | undefined> {
-        return this.users.find(user => user.guid === guid);
+        return this.usersRepository.findOne({ where: { guid } });
     }
 
     async findOneByEmail(email: string): Promise<UserEntity | undefined> {
-        return this.users.find(user => user.email === email);
+        return this.usersRepository.findOne({ where: { email } });
     }
 
-    async find(): Promise<UserEntity[]> {
-        return this.users;
+    find(): Promise<UserEntity[]> {
+        return this.usersRepository.find();
     }
 }

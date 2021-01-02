@@ -1,3 +1,5 @@
+import { ConfigService } from '@nestjs/config';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, ValidateIf, validateSync } from 'class-validator';
 import 'dotenv/config';
@@ -62,6 +64,42 @@ export class AppConfig {
     @IsNotEmpty()
     @IsString()
     AUTH__JWT_SECRET: string;
+
+    @IsNotEmpty()
+    @IsString()
+    DB__HOST: string;
+
+    @IsNotEmpty()
+    @IsNumber()
+    DB__PORT: number;
+
+    @IsNotEmpty()
+    @IsString()
+    DB__USERNAME: string;
+
+    @IsNotEmpty()
+    @IsString()
+    DB__PASSWORD: string;
+
+    @IsNotEmpty()
+    @IsString()
+    DB__DATABASE_NAME: string;
+
+    static getTypeOrmConfig(configService: ConfigService<AppConfig>): TypeOrmModuleOptions {
+        return {
+            type: 'postgres',
+            host: configService.get<string>('DB__HOST'),
+            port: configService.get<number>('DB__PORT'),
+            username: configService.get<string>('DB__USERNAME'),
+            password: configService.get<string>('DB__PASSWORD'),
+            database: configService.get<string>('DB__DATABASE_NAME'),
+            entities: ['**/*.entity.ts', '**/*.entity.ts'],
+            migrations: ['src/migrations/*{.ts,.js}'],
+            cli: {
+                migrationsDir: 'src/migrations',
+            },
+        };
+    }
 
     public static setupAndValidate(environmentConfig: Record<string, unknown>) {
         const configFileFlattened = this.flattenObject(this.loadConfigurationFile());
