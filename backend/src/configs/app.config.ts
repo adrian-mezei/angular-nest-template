@@ -93,8 +93,8 @@ export class AppConfig {
             username: configService.get<string>('DB__USERNAME'),
             password: configService.get<string>('DB__PASSWORD'),
             database: configService.get<string>('DB__DATABASE_NAME'),
-            entities: ['**/*.entity.ts', '**/*.entity.ts'],
-            migrations: ['src/migrations/*{.ts,.js}'],
+            entities: ['**/*.entity.js'],
+            migrations: ['src/migrations/*.js'],
             cli: {
                 migrationsDir: 'src/migrations',
             },
