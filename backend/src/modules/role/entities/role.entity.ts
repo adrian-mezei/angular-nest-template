@@ -14,6 +14,7 @@ export class Role {
         enum: RoleName,
         default: RoleName.USER,
         nullable: false,
+        unique: true,
     })
     name: RoleName;
 }

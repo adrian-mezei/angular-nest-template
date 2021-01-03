@@ -1,16 +1,14 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class UserAndRoleEntitiesAdded1609612393471 implements MigrationInterface {
-    name = 'UserAndRoleEntitiesAdded1609612393471';
+export class UserAndRoleEntitiesAdded1609624952149 implements MigrationInterface {
+    name = 'UserAndRoleEntitiesAdded1609624952149';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
-            CREATE TYPE "role_name_enum" AS ENUM('USER', 'ADMIN')
-        `);
         await queryRunner.query(`
             CREATE TABLE "role" (
                 "id" SERIAL NOT NULL,
                 "name" "role_name_enum" NOT NULL DEFAULT 'USER',
+                CONSTRAINT "UQ_ae4578dcaed5adff96595e61660" UNIQUE ("name"),
                 CONSTRAINT "PK_b36bcfe02fc8de3c57a8b2391c2" PRIMARY KEY ("id")
             )
         `);
@@ -74,9 +72,6 @@ export class UserAndRoleEntitiesAdded1609612393471 implements MigrationInterface
         `);
         await queryRunner.query(`
             DROP TABLE "role"
-        `);
-        await queryRunner.query(`
-            DROP TYPE "role_name_enum"
         `);
     }
 }
