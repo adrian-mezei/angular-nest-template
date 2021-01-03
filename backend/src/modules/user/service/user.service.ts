@@ -36,4 +36,19 @@ export class UserService {
 
         return userWithPassword.comparePassword(attempt);
     }
+
+    async updateUserDataIfEmpty(
+        user: User,
+        firstName: string | undefined,
+        lastName: string | undefined,
+        profileImageUrl: string | undefined,
+    ): Promise<void> {
+        if (user.id === undefined) return;
+
+        if (!user.firstName && firstName) user.firstName = firstName;
+        if (!user.lastName && lastName) user.lastName = lastName;
+        if (!user.profileImageUrl && profileImageUrl) user.profileImageUrl = profileImageUrl;
+
+        this.userRepository.save(user);
+    }
 }

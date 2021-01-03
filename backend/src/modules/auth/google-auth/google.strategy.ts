@@ -4,6 +4,7 @@ import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from '../../../configs/app.config';
 import { GoogleAuthService } from './service/google-auth.service';
+import { UserService } from '../../user/service/user.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
@@ -12,6 +13,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     constructor(
         readonly configService: ConfigService<AppConfig>,
         private readonly googleAuthService: GoogleAuthService,
+        private readonly userService: UserService,
     ) {
         super({
             clientID: configService.get<string>('AUTH__GOOGLE_OAUTH20__CLIENT_ID'),
@@ -27,15 +29,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
             throw new UnauthorizedException();
         }
 
-        // TODO Update user data if it is empty.
-
-        /*const user = {
-            email: profile.emails[0].value,
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
-            picture: profile.photos[0].value,
-            accessToken,
-        };*/
+        await this.userService.updateUserDataIfEmpty(
+            user,
+            profile?.name?.givenName,
+            profile?.name?.familyName,
+            profile?.photos[0]?.value,
+        );
 
         return user;
     }
