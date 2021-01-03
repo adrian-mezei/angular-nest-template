@@ -5,6 +5,7 @@ import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, ValidateIf, validate
 import 'dotenv/config';
 import { LoggerFormat, LoggerLevel, LoggerTarget } from './app.logger-config';
 import configFile from './config.json';
+import path from 'path';
 
 export class AppConfig {
     @IsNotEmpty()
@@ -93,8 +94,8 @@ export class AppConfig {
             username: configService.get<string>('DB__USERNAME'),
             password: configService.get<string>('DB__PASSWORD'),
             database: configService.get<string>('DB__DATABASE_NAME'),
-            entities: ['**/*.entity.js'],
-            migrations: ['src/migrations/*.js'],
+            entities: [path.join(__dirname, '../**/*.entity{.ts,.js}')],
+            migrations: [path.join(__dirname, '../migrations/*')],
             cli: {
                 migrationsDir: 'src/migrations',
             },
