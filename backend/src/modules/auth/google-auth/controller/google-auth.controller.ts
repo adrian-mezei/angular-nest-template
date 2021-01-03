@@ -29,8 +29,6 @@ export class GoogleAuthController {
     @ApiOperation({ summary: 'Google authentication callback endpoint.' })
     @UseGuards(GoogleAuthGuard)
     async googleAuthCallback(@Req() req) {
-        //console.log('======================================');
-        //console.log(this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED'));
         if (!this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED')) {
             throw new NotFoundException();
         }
