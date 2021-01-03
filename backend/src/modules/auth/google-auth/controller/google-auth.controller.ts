@@ -33,6 +33,7 @@ export class GoogleAuthController {
             throw new NotFoundException();
         }
 
-        return this.localAuthService.login(req.user);
+        // TODO Create UserDTO
+        return { ...req.user, accessToken: this.localAuthService.createAccessToken(req.user) };
     }
 }

@@ -15,10 +15,8 @@ export class LocalAuthService {
         return passwordsMatch ? user : undefined;
     }
 
-    async login(user: User) {
+    createAccessToken(user: User): string {
         const payload = { sub: user.guid };
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
+        return this.jwtService.sign(payload);
     }
 }

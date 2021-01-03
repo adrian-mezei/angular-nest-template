@@ -22,7 +22,7 @@ export class LoginCallbackComponent implements OnInit {
             try {
                 this.loaderService.show();
                 const response = await this.loginService.googleAuthCallback(params);
-                localStorage.setItem('token', response.body.user.accessToken);
+                localStorage.setItem('token', response.body.accessToken);
                 this.router.navigate([RouteValues.HOME]);
             } catch (e) {
                 this.router.navigate([RouteValues.LOGIN]);
