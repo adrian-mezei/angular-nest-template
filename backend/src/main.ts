@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import 'source-map-support/register';
 import { AppConfig } from './configs/app.config';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { INestApplication, Logger } from '@nestjs/common';
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const logger = new Logger('bootstrap');
@@ -19,6 +19,7 @@ async function bootstrap() {
 
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
     app.setGlobalPrefix(basePath);
+    app.useGlobalPipes(new ValidationPipe());
     setUpSwagger(app, basePath + '/swagger');
 
     await app.listen(port, host);
@@ -30,7 +31,8 @@ function setUpSwagger(app: INestApplication, path: string) {
         .setTitle('Template example')
         .setDescription('The example API description')
         .setVersion('3.0')
-        // .addBearerAuth()
+        // TODO add this to controllers globally (maybe a common base controller that is extended?)
+        .addBearerAuth()
         .build();
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup(path, app, document);
