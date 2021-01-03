@@ -4,8 +4,10 @@ import { AppModule } from './app.module';
 import 'source-map-support/register';
 import { AppConfig } from './configs/app.config';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { Logger } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+const logger = new Logger('bootstrap');
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -17,7 +19,13 @@ async function bootstrap() {
 
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
     app.setGlobalPrefix(basePath);
+    setUpSwagger(app, basePath + '/swagger');
 
+    await app.listen(port, host);
+    logger.log(`App is listening on http://${host}:${port}/${basePath}`);
+}
+
+function setUpSwagger(app: INestApplication, path: string) {
     const options = new DocumentBuilder()
         .setTitle('Template example')
         .setDescription('The example API description')
@@ -25,11 +33,7 @@ async function bootstrap() {
         // .addBearerAuth()
         .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup(basePath + '/swagger', app, document);
-
-    await app.listen(port, host);
-
-    const logger = new Logger('bootstrap');
-    logger.log(`App is listening on http://${host}:${port}/${basePath}`);
+    SwaggerModule.setup(path, app, document);
 }
+
 bootstrap();
