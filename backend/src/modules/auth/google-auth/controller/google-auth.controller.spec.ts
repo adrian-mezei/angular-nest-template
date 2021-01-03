@@ -2,14 +2,27 @@ import { NotFoundException } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { AppConfig } from '../../../../configs/app.config';
+import { Role } from '../../../role/entities/role.entity';
+import { User } from '../../../user/entities/user.entity';
 import { UserService } from '../../../user/service/user.service';
-import { UserModule } from '../../../user/user.module';
-import { LocalAuthModule } from '../../local-auth/local-auth.module';
 import { LocalAuthService } from '../../local-auth/service/local-auth.service';
 import { GoogleAuthController } from './google-auth.controller';
+import * as bcrypt from 'bcrypt';
+import { RoleName } from '../../../role/role-name.enum';
 
 describe('GoogleAuthController', () => {
+    const userUser = new User();
+    userUser.id = 1;
+    userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
+    userUser.email = 'john.doe@gmail.com';
+    userUser.firstName = 'John';
+    userUser.lastName = 'Doe';
+    userUser.password = bcrypt.hashSync('MySecretPw', 10);
+    userUser.roles = [{ id: 1, name: RoleName.USER }];
+
     describe('googleAuth', () => {
         it('should return undefined if google oauth 2.0 is enabled', async () => {
             const environmentVariablesOverride = {
@@ -21,15 +34,25 @@ describe('GoogleAuthController', () => {
 
             const module: TestingModule = await Test.createTestingModule({
                 imports: [
-                    UserModule,
-                    LocalAuthModule,
                     JwtModule.register({ secret: 'very-secret' }),
                     ConfigModule.forRoot({
                         validate: config => AppConfig.setupAndValidate({ ...config, ...environmentVariablesOverride }),
                     }),
                 ],
                 controllers: [GoogleAuthController],
-                providers: [UserService, LocalAuthService, ConfigService],
+                providers: [
+                    UserService,
+                    LocalAuthService,
+                    ConfigService,
+                    {
+                        provide: getRepositoryToken(User),
+                        useClass: Repository,
+                    },
+                    {
+                        provide: getRepositoryToken(Role),
+                        useClass: Repository,
+                    },
+                ],
             }).compile();
 
             const controller = module.get<GoogleAuthController>(GoogleAuthController);
@@ -46,15 +69,25 @@ describe('GoogleAuthController', () => {
 
             const module: TestingModule = await Test.createTestingModule({
                 imports: [
-                    UserModule,
-                    LocalAuthModule,
                     JwtModule.register({ secret: 'very-secret' }),
                     ConfigModule.forRoot({
                         validate: config => AppConfig.setupAndValidate({ ...config, ...environmentVariablesOverride }),
                     }),
                 ],
                 controllers: [GoogleAuthController],
-                providers: [UserService, LocalAuthService, ConfigService],
+                providers: [
+                    UserService,
+                    LocalAuthService,
+                    ConfigService,
+                    {
+                        provide: getRepositoryToken(User),
+                        useClass: Repository,
+                    },
+                    {
+                        provide: getRepositoryToken(Role),
+                        useClass: Repository,
+                    },
+                ],
             }).compile();
 
             const controller = module.get<GoogleAuthController>(GoogleAuthController);
@@ -75,32 +108,38 @@ describe('GoogleAuthController', () => {
 
             const module: TestingModule = await Test.createTestingModule({
                 imports: [
-                    UserModule,
-                    LocalAuthModule,
                     JwtModule.register({ secret: 'very-secret' }),
                     ConfigModule.forRoot({
                         validate: config => AppConfig.setupAndValidate({ ...config, ...environmentVariablesOverride }),
                     }),
                 ],
                 controllers: [GoogleAuthController],
-                providers: [UserService, LocalAuthService, ConfigService],
+                providers: [
+                    UserService,
+                    LocalAuthService,
+                    ConfigService,
+                    {
+                        provide: getRepositoryToken(User),
+                        useClass: Repository,
+                    },
+                    {
+                        provide: getRepositoryToken(Role),
+                        useClass: Repository,
+                    },
+                ],
             }).compile();
 
             const controller = module.get<GoogleAuthController>(GoogleAuthController);
+            const userRepository = module.get(getRepositoryToken(User));
 
-            const data = {
-                user: {
-                    id: 1,
-                    guid: '1a43d3d9-9bde-441d-ac60-372e34789c2c',
-                    email: 'john.doe@test.com',
-                    firstName: 'John',
-                    lastName: 'Doe',
-                    password: 'MySecretPw',
-                },
+            const request = {
+                user: userUser,
             };
 
-            const response = await controller.googleAuthCallback(data);
-            expect(response.access_token).toBeDefined();
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
+            const response = await controller.googleAuthCallback(request);
+
+            expect(response.accessToken).toBeDefined();
         });
 
         it('should throw not found if google oauth 2.0 is not enabled', async () => {
@@ -111,31 +150,37 @@ describe('GoogleAuthController', () => {
 
             const module: TestingModule = await Test.createTestingModule({
                 imports: [
-                    UserModule,
-                    LocalAuthModule,
                     JwtModule.register({ secret: 'very-secret' }),
                     ConfigModule.forRoot({
                         validate: config => AppConfig.setupAndValidate({ ...config, ...environmentVariablesOverride }),
                     }),
                 ],
                 controllers: [GoogleAuthController],
-                providers: [UserService, LocalAuthService, ConfigService],
+                providers: [
+                    UserService,
+                    LocalAuthService,
+                    ConfigService,
+                    {
+                        provide: getRepositoryToken(User),
+                        useClass: Repository,
+                    },
+                    {
+                        provide: getRepositoryToken(Role),
+                        useClass: Repository,
+                    },
+                ],
             }).compile();
 
             const controller = module.get<GoogleAuthController>(GoogleAuthController);
+            const userRepository = module.get(getRepositoryToken(User));
 
-            const data = {
-                user: {
-                    id: 1,
-                    guid: '1a43d3d9-9bde-441d-ac60-372e34789c2c',
-                    email: 'john.doe@test.com',
-                    firstName: 'John',
-                    lastName: 'Doe',
-                    password: 'MySecretPw',
-                },
+            const request = {
+                user: userUser,
             };
 
-            const callback = () => controller.googleAuthCallback(data);
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
+            const callback = () => controller.googleAuthCallback(request);
+
             expect(callback).rejects.toEqual(new NotFoundException());
         });
     });

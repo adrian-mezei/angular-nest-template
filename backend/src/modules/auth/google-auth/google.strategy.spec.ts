@@ -1,34 +1,50 @@
 import { UnauthorizedException } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { AppConfig } from '../../../configs/app.config';
+import { Role } from '../../role/entities/role.entity';
+import { RoleName } from '../../role/role-name.enum';
 import { User } from '../../user/entities/user.entity';
 import { UserService } from '../../user/service/user.service';
 import { GoogleStrategy } from './google.strategy';
 import { GoogleAuthService } from './service/google-auth.service';
+import * as bcrypt from 'bcrypt';
 
 describe('GoogleStrategy', () => {
     let googleStrategy: GoogleStrategy;
+    let userRepository: Repository<User>;
+
+    const userUser = new User();
+    userUser.id = 1;
+    userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
+    userUser.email = 'john.doe@gmail.com';
+    userUser.firstName = 'John';
+    userUser.lastName = 'Doe';
+    userUser.password = bcrypt.hashSync('MySecretPw', 10);
+    userUser.roles = [{ id: 1, name: RoleName.USER }];
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [ConfigModule.forRoot({ validate: config => AppConfig.setupAndValidate(config) })],
-            providers: [GoogleStrategy, GoogleAuthService, UserService],
+            providers: [
+                GoogleStrategy,
+                GoogleAuthService,
+                UserService,
+                {
+                    provide: getRepositoryToken(User),
+                    useClass: Repository,
+                },
+                {
+                    provide: getRepositoryToken(Role),
+                    useClass: Repository,
+                },
+            ],
         }).compile();
 
         googleStrategy = module.get<GoogleStrategy>(GoogleStrategy);
-        const service = module.get<UserService>(UserService);
-        service.findOneByEmail = (email: string): any =>
-            [
-                {
-                    id: 1,
-                    guid: '1a43d3d9-9bde-441d-ac60-372e34789c2c',
-                    email: 'john.doe@test.com',
-                    firstName: 'John',
-                    lastName: 'Doe',
-                    password: 'MySecretPw',
-                },
-            ].find(user => user.email === email);
+        userRepository = module.get(getRepositoryToken(User));
     });
 
     it('should be defined', () => {
@@ -40,10 +56,13 @@ describe('GoogleStrategy', () => {
             const profile = {
                 emails: [
                     {
-                        value: 'john.doe@test.com',
+                        value: 'john.doe@gmail.com',
                     },
                 ],
             };
+
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
+            jest.spyOn(userRepository, 'save').mockResolvedValue(userUser);
             const user: User = await googleStrategy.validate('', undefined, profile);
 
             expect(user).toBeDefined();
@@ -58,6 +77,8 @@ describe('GoogleStrategy', () => {
                     },
                 ],
             };
+
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
             const validate = () => googleStrategy.validate('', undefined, profile);
 
             expect(validate).rejects.toEqual(new UnauthorizedException());

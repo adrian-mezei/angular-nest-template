@@ -1,33 +1,48 @@
 import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '../../../user/entities/user.entity';
 import { UserService } from '../../../user/service/user.service';
-import { UserModule } from '../../../user/user.module';
 import { LocalAuthService } from '../service/local-auth.service';
 import { LocalAuthController } from './local-auth.controller';
+import * as bcrypt from 'bcrypt';
+import { RoleName } from '../../../role/role-name.enum';
+import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Role } from '../../../role/entities/role.entity';
 
 describe('LocalAuthController', () => {
     let controller: LocalAuthController;
+    let userRepository: Repository<User>;
+
+    const userUser = new User();
+    userUser.id = 1;
+    userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
+    userUser.email = 'john.doe@gmail.com';
+    userUser.firstName = 'John';
+    userUser.lastName = 'Doe';
+    userUser.password = bcrypt.hashSync('MySecretPw', 10);
+    userUser.roles = [{ id: 1, name: RoleName.USER }];
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            imports: [UserModule, JwtModule.register({ secret: 'very-secret' })],
+            imports: [JwtModule.register({ secret: 'very-secret' })],
             controllers: [LocalAuthController],
-            providers: [LocalAuthService, UserService],
+            providers: [
+                LocalAuthService,
+                UserService,
+                {
+                    provide: getRepositoryToken(User),
+                    useClass: Repository,
+                },
+                {
+                    provide: getRepositoryToken(Role),
+                    useClass: Repository,
+                },
+            ],
         }).compile();
 
         controller = module.get<LocalAuthController>(LocalAuthController);
-        const service = module.get<UserService>(UserService);
-        service.findOneByEmail = (email: string): any =>
-            [
-                {
-                    id: 1,
-                    guid: '1a43d3d9-9bde-441d-ac60-372e34789c2c',
-                    email: 'john.doe@test.com',
-                    firstName: 'John',
-                    lastName: 'Doe',
-                    password: 'MySecretPw',
-                },
-            ].find(user => user.email === email);
+        userRepository = module.get(getRepositoryToken(User));
     });
 
     it('should be defined', () => {
@@ -42,8 +57,9 @@ describe('LocalAuthController', () => {
                 },
             };
 
-            const response = await controller.login(loginObject);
-            expect(response.access_token).toBeDefined();
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
+            const response = await controller.login(loginObject, undefined as any);
+            expect(response.accessToken).toBeDefined();
         });
     });
 });

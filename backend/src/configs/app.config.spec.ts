@@ -25,6 +25,14 @@ const testConfigurationFileContent = {
             GOOGLE_CLIENT_SECRET: '',
         },
     },
+
+    DB: {
+        HOST: 'localhost',
+        PORT: '5432',
+        USERNAME: 'user',
+        PASSWORD: 'password',
+        DATABASE_NAME: 'angular-nest-template',
+    },
 };
 
 describe('AppConfig', () => {

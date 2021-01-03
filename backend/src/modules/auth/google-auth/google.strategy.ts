@@ -33,7 +33,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
             user,
             profile?.name?.givenName,
             profile?.name?.familyName,
-            profile?.photos[0]?.value,
+            profile?.photos?.[0]?.value,
         );
 
         return user;
