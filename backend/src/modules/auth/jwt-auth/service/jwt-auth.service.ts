@@ -7,6 +7,6 @@ export class JwtAuthService {
     constructor(private readonly userService: UserService) {}
 
     async validateUser(guid: string): Promise<User | undefined> {
-        return await this.userService.findOneByGuid(guid);
+        return await this.userService.findOneByGuidWithRoles(guid);
     }
 }

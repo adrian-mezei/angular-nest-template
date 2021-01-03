@@ -7,15 +7,12 @@ import { UserService } from '../../../user/service/user.service';
 export class LocalAuthService {
     constructor(private readonly userService: UserService, private readonly jwtService: JwtService) {}
 
-    async validateUser(email: string, pass: string): Promise<any> {
+    async validateUser(email: string, password: string): Promise<any> {
         const user = await this.userService.findOneByEmail(email);
-        // TODO bcrypt
-        if (user?.password === pass) {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { password, ...result } = user; // remove the password
-            return result;
-        }
-        return undefined;
+        if (!user) return undefined;
+
+        const passwordsMatch: boolean = await this.userService.comparePassword(user, password);
+        return passwordsMatch ? user : undefined;
     }
 
     async login(user: User) {
