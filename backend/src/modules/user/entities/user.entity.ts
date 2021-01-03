@@ -51,7 +51,7 @@ export class User {
     profileImageUrl?: string;
 
     @ApiProperty({ example: 'secretPassword', description: 'The password of the user.' })
-    @Column({ select: false })
+    @Column({ select: false, nullable: true })
     password: string;
 
     @ApiProperty({ example: 'USER', description: 'The roles of the user.' })
@@ -73,7 +73,9 @@ export class User {
 
     @BeforeInsert()
     async hashPassword(): Promise<void> {
-        this.password = await bcrypt.hash(this.password, 10);
+        if (this.password !== undefined) {
+            this.password = await bcrypt.hash(this.password, 10);
+        }
     }
 
     @BeforeInsert()
