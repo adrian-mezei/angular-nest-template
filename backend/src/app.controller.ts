@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { Public } from './modules/auth/jwt-auth/public-decorator';
 
@@ -8,6 +9,7 @@ export class AppController {
 
     @Public()
     @Get('')
+    @ApiOperation({ summary: 'Health check endpoint.' })
     healthCheck(): string {
         return this.appService.healthCheck();
     }
