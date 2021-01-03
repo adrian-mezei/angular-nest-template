@@ -18,6 +18,7 @@
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "prettier/prettier": ["error", { "endOfLine": "auto" }],
-        "no-console": "error"
+        "no-console": "error",
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
     }
 }
