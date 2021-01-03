@@ -6,9 +6,10 @@ import { UserModule } from '../../user/user.module';
 import { UserService } from '../../user/service/user.service';
 import { LocalAuthModule } from '../local-auth/local-auth.module';
 import { GoogleAuthService } from './service/google-auth.service';
+import { RoleModule } from '../../role/role.module';
 
 @Module({
-    imports: [UserModule, ConfigModule, LocalAuthModule],
+    imports: [UserModule, ConfigModule, LocalAuthModule, RoleModule],
     providers: [UserService, GoogleStrategy, GoogleAuthService],
     controllers: [GoogleAuthController],
 })
