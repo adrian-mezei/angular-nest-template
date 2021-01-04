@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { AppService } from './app.service';
-import { Public } from './modules/auth/jwt-auth/public-decorator';
+import { Public } from './modules/auth/jwt-auth/decorators/public-decorator';
 
 @Controller('')
 export class AppController {

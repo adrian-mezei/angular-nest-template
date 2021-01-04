@@ -7,6 +7,7 @@ import { User } from '../entities/user.entity';
 import { UserService } from '../service/user.service';
 import { UserController } from './user.controller';
 import * as bcrypt from 'bcrypt';
+import { UnauthorizedException } from '@nestjs/common';
 
 describe('UserController', () => {
     let controller: UserController;
@@ -60,6 +61,22 @@ describe('UserController', () => {
             const users = await controller.list();
 
             expect(users.length).toBe(2);
+        });
+    });
+
+    describe('get', () => {
+        it('should return a user if the requested user is himself', async () => {
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
+            const user = await controller.get(userUser, userUser.id!);
+
+            expect(user).toBeDefined();
+        });
+
+        it('should thrown unauthorized exception if the requested user is not himself', async () => {
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
+            const getUser = () => controller.get(userUser, userUser.id! + 1);
+
+            expect(getUser).toThrow(new UnauthorizedException());
         });
     });
 });

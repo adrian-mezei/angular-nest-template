@@ -59,6 +59,15 @@ describe('GoogleStrategy', () => {
                         value: 'john.doe@gmail.com',
                     },
                 ],
+                name: {
+                    givenName: 'John',
+                    familyName: 'Doe',
+                },
+                photos: [
+                    {
+                        value: 'http://my-image.com/image',
+                    },
+                ],
             };
 
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
@@ -76,12 +85,169 @@ describe('GoogleStrategy', () => {
                         value: 'missing@test.com',
                     },
                 ],
+                name: {
+                    givenName: 'John',
+                    familyName: 'Doe',
+                },
+                photos: [
+                    {
+                        value: 'http://my-image.com/image',
+                    },
+                ],
             };
 
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
             const validate = () => googleStrategy.validate('', undefined, profile);
 
             expect(validate).rejects.toEqual(new UnauthorizedException());
+        });
+
+        it('should throw unauthorized exception if profile email is not provided', async () => {
+            const profile = {};
+
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
+            const validate = () => googleStrategy.validate('', undefined, profile);
+
+            expect(validate).rejects.toEqual(new UnauthorizedException());
+        });
+
+        it('should update user data if it is empty', async () => {
+            const profile = {
+                emails: [
+                    {
+                        value: 'missing@test.com',
+                    },
+                ],
+                name: {
+                    givenName: 'John',
+                    familyName: 'Doe',
+                },
+                photos: [
+                    {
+                        value: 'http://my-image.com/image',
+                    },
+                ],
+            };
+
+            const unnamedUser = new User();
+            unnamedUser.id = 1;
+            unnamedUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
+            unnamedUser.email = 'john.doe@gmail.com';
+            unnamedUser.password = bcrypt.hashSync('MySecretPw', 10);
+            unnamedUser.roles = [{ id: 1, name: RoleName.USER }];
+
+            const namedUser = new User();
+            namedUser.id = 1;
+            namedUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
+            namedUser.email = 'john.doe@gmail.com';
+            namedUser.firstName = 'John';
+            namedUser.lastName = 'Doe';
+            namedUser.profileImageUrl = 'http://my-image.com/image';
+            namedUser.password = bcrypt.hashSync('MySecretPw', 10);
+            namedUser.roles = [{ id: 1, name: RoleName.USER }];
+
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(unnamedUser);
+            jest.spyOn(userRepository, 'save').mockResolvedValue(namedUser);
+            const user: User = await googleStrategy.validate('', undefined, profile);
+
+            expect(user).toBeDefined();
+        });
+
+        it('should not update user data if it is already not empty', async () => {
+            const profile = {
+                emails: [
+                    {
+                        value: 'missing@test.com',
+                    },
+                ],
+                name: {
+                    givenName: 'New',
+                    familyName: 'Name',
+                },
+                photos: [
+                    {
+                        value: 'http://my-image.com/new',
+                    },
+                ],
+            };
+
+            const namedUser = new User();
+            namedUser.id = 1;
+            namedUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
+            namedUser.email = 'john.doe@gmail.com';
+            namedUser.firstName = 'John';
+            namedUser.lastName = 'Doe';
+            namedUser.profileImageUrl = 'http://my-image.com/image';
+            namedUser.password = bcrypt.hashSync('MySecretPw', 10);
+            namedUser.roles = [{ id: 1, name: RoleName.USER }];
+
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(namedUser);
+            const saveSpy = jest.spyOn(userRepository, 'save').mockResolvedValue(new User());
+            const user: User = await googleStrategy.validate('', undefined, profile);
+
+            expect(user).toBeDefined();
+            expect(saveSpy.mock.calls[0][0].firstName).toBe(namedUser.firstName);
+            expect(saveSpy.mock.calls[0][0].lastName).toBe(namedUser.lastName);
+            expect(saveSpy.mock.calls[0][0].profileImageUrl).toBe(namedUser.profileImageUrl);
+            expect(saveSpy).toBeCalledTimes(1);
+        });
+
+        it('should update user first name if it is already not empty', async () => {
+            const profile = {
+                emails: [
+                    {
+                        value: 'missing@test.com',
+                    },
+                ],
+                name: {
+                    givenName: 'New',
+                    familyName: 'Name',
+                },
+                photos: [
+                    {
+                        value: 'http://my-image.com/new',
+                    },
+                ],
+            };
+
+            const namedUser = new User();
+            namedUser.id = 1;
+            namedUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
+            namedUser.email = 'john.doe@gmail.com';
+            namedUser.lastName = 'Doe';
+            namedUser.profileImageUrl = 'http://my-image.com/image';
+            namedUser.password = bcrypt.hashSync('MySecretPw', 10);
+            namedUser.roles = [{ id: 1, name: RoleName.USER }];
+
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(namedUser);
+            const saveSpy = jest.spyOn(userRepository, 'save').mockResolvedValue(new User());
+            const user: User = await googleStrategy.validate('', undefined, profile);
+
+            expect(user).toBeDefined();
+            expect(saveSpy.mock.calls[0][0].firstName).toBe(profile.name.givenName);
+            expect(saveSpy.mock.calls[0][0].lastName).toBe(namedUser.lastName);
+            expect(saveSpy.mock.calls[0][0].profileImageUrl).toBe(namedUser.profileImageUrl);
+            expect(saveSpy).toBeCalledTimes(1);
+        });
+
+        it('should not fail if user data is not provided in profile', async () => {
+            const profile = {
+                emails: [
+                    {
+                        value: 'missing@test.com',
+                    },
+                ],
+            };
+
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
+            const saveSpy = jest.spyOn(userRepository, 'save').mockResolvedValue(new User());
+            const user: User = await googleStrategy.validate('', undefined, profile);
+
+            expect(user).toBeDefined();
+            expect(saveSpy.mock.calls[0][0].firstName).toBe(userUser.firstName);
+            expect(saveSpy.mock.calls[0][0].lastName).toBe(userUser.lastName);
+            expect(saveSpy.mock.calls[0][0].profileImageUrl).toBe(userUser.profileImageUrl);
+            expect(saveSpy).toBeCalledTimes(1);
         });
     });
 });

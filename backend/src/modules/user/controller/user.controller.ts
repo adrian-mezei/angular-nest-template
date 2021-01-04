@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UnauthorizedException } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { RequestUser } from '../../auth/jwt-auth/decorators/user-param-decorator';
 import { RoleName } from '../../role/role-name.enum';
 import { Roles } from '../../role/roles.decorator';
 import { User } from '../entities/user.entity';
@@ -18,7 +19,11 @@ export class UserController {
     }
 
     @Get(':id')
-    get(@Param('id') id: number): Promise<User | undefined> {
+    get(@RequestUser() user: User, @Param('id') id: number): Promise<User | undefined> {
+        if (user.id !== id) {
+            throw new UnauthorizedException();
+        }
+
         return this.userService.findOne(id);
     }
 }

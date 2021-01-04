@@ -2,7 +2,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post, UseGuards, Request, HttpCode, Body } from '@nestjs/common';
 import { LocalAuthGuard } from '../local-auth.guard';
 import { LocalAuthService } from '../service/local-auth.service';
-import { Public } from '../../jwt-auth/public-decorator';
+import { Public } from '../../jwt-auth/decorators/public-decorator';
 import { LocalAuthLoginDto, LocalAuthLoginParamDto } from '../dtos/local-auth-login.dto';
 
 @ApiTags('auth')

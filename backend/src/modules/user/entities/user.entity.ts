@@ -17,7 +17,7 @@ import { ApiHideProperty } from '@nestjs/swagger';
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
     @Column({
         unique: true,

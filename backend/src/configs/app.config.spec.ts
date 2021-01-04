@@ -1,3 +1,5 @@
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Test, TestingModule } from '@nestjs/testing';
 import { AppConfig } from './app.config';
 
 const testConfigurationFileContent = {
@@ -40,6 +42,21 @@ describe('AppConfig', () => {
         it('should be defined', () => {
             const config = AppConfig['loadConfigurationFile']();
             expect(config).toBeDefined();
+        });
+    });
+
+    describe('getTypeOrmConfig', () => {
+        it('should return config', async () => {
+            const module: TestingModule = await Test.createTestingModule({
+                imports: [ConfigModule.forRoot({ validate: config => AppConfig.setupAndValidate(config) })],
+                providers: [ConfigService],
+            }).compile();
+
+            const configService = module.get<ConfigService>(ConfigService);
+
+            const typeOrmConfig = AppConfig.getTypeOrmConfig(configService);
+
+            expect(typeOrmConfig).toBeDefined();
         });
     });
 

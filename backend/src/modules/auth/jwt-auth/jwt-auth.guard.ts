@@ -1,7 +1,7 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from './public-decorator';
+import { IS_PUBLIC_KEY } from './decorators/public-decorator';
 import { RoleName } from '../../role/role-name.enum';
 import { ROLES_KEY } from '../../role/roles.decorator';
 import { User } from '../../user/entities/user.entity';

@@ -92,4 +92,24 @@ describe('UserService', () => {
             expect(user.length).toBe(2);
         });
     });
+
+    describe('updateUserDataIfEmpty', () => {
+        it('should return without any update if the provided user does not have id', async () => {
+            const newUser = Object.assign(userUser, { id: undefined });
+
+            const saveSpy = jest.spyOn(userRepository, 'save');
+            await userService.updateUserDataIfEmpty(newUser, 'John', 'Doe', 'url');
+
+            expect(saveSpy).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('comparePassword', () => {
+        it('should return false if the user with the provided id does not exist', async () => {
+            jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
+            const comparePasswordResult = await userService.comparePassword(userUser, 'secret-password');
+
+            expect(comparePasswordResult).toBeFalsy();
+        });
+    });
 });

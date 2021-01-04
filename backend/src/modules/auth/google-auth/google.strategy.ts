@@ -24,6 +24,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     }
 
     async validate(accessToken: string, refreshToken: any, profile: any): Promise<any> {
+        if (!profile || !profile.emails || !profile.emails[0] || !profile.emails[0].value) {
+            throw new UnauthorizedException();
+        }
+
         const user = await this.googleAuthService.validateUser(profile.emails[0].value);
         if (!user) {
             throw new UnauthorizedException();
@@ -31,9 +35,9 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 
         await this.userService.updateUserDataIfEmpty(
             user,
-            profile?.name?.givenName,
-            profile?.name?.familyName,
-            profile?.photos?.[0]?.value,
+            profile.name?.givenName,
+            profile.name?.familyName,
+            profile.photos?.[0]?.value,
         );
 
         return user;
