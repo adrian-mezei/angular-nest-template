@@ -1,6 +1,6 @@
 {
     "name": "backend",
-    "description": "Nest template for further projects that use NestJS as Node.js backend framework.",
+    "description": "NestJS template for further projects that use NestJS as Node.js backend framework.",
     "version": "1.0.0",
     "author": {
         "name": "Adrián Mezei",
