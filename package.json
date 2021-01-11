@@ -3,8 +3,9 @@
     "version": "1.0.0",
     "description": "An Angular frontend NestJS backend template starter project.",
     "scripts": {
-        "commit" : "git-cz"
-	},
+        "commit": "git-cz",
+        "release": "standard-version"
+    },
     "repository": {
         "type": "git",
         "url": "https://gitlab.com/adrian-mezei-smart-home/angular-nest-template.git"
@@ -18,7 +19,8 @@
     "homepage": "https://gitlab.com/adrian-mezei-smart-home/angular-nest-template#readme",
     "devDependencies": {
         "commitizen": "^4.2.2",
-        "cz-conventional-changelog": "^3.3.0"
+        "cz-conventional-changelog": "^3.3.0",
+        "standard-version": "^9.1.0"
     },
     "config": {
         "commitizen": {
