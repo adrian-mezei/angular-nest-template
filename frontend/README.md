@@ -70,7 +70,7 @@ $ npm run test:watch
 # run end-to-end tests
 $ npm run test:e2e
 
-# run all tests, liter and formatter
+# run all tests, linter, and formatter
 $ npm run test:all
 ```
 
