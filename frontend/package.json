@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://gitlab.com/adrian-mezei-smart-home/angular-nest-template.git"
+        "url": "https://github.com/adrian-mezei/angular-nest-template.git"
     },
     "private": true,
     "scripts": {

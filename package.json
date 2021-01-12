@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://gitlab.com/adrian-mezei-smart-home/angular-nest-template.git"
+        "url": "https://github.com/adrian-mezei/angular-nest-template.git"
     },
     "keywords": [
         "angular",
@@ -16,7 +16,7 @@
         "template"
     ],
     "author": "Adrián Mezei",
-    "homepage": "https://gitlab.com/adrian-mezei-smart-home/angular-nest-template#readme",
+    "homepage": "https://github.com/adrian-mezei/angular-nest-template.git",
     "devDependencies": {
         "@commitlint/cli": "^11.0.0",
         "@commitlint/config-conventional": "^11.0.0",
