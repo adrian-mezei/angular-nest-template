@@ -12,7 +12,6 @@ import { RoleModule } from './modules/role/role.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { UserModule } from './modules/user/user.module';
-import { VersionModule } from './modules/version/version.module';
 
 @Module({
     imports: [
@@ -34,7 +33,6 @@ import { VersionModule } from './modules/version/version.module';
         JwtAuthModule,
         RoleModule,
         UserModule,
-        VersionModule,
     ],
     controllers: [AppController],
     providers: [AppService],
