@@ -4,7 +4,8 @@
     "description": "An Angular frontend NestJS backend template starter project.",
     "scripts": {
         "commit": "git-cz",
-        "release": "standard-version"
+        "release": "standard-version",
+        "prepare": "husky install"
     },
     "repository": {
         "type": "git",
@@ -18,21 +19,16 @@
     "author": "Adrián Mezei",
     "homepage": "https://github.com/adrian-mezei/angular-nest-template.git",
     "devDependencies": {
-        "@commitlint/cli": "^11.0.0",
-        "@commitlint/config-conventional": "^11.0.0",
-        "commitizen": "^4.2.2",
+        "@commitlint/cli": "^12.1.4",
+        "@commitlint/config-conventional": "^12.1.4",
+        "commitizen": "^4.2.4",
         "cz-conventional-changelog": "^3.3.0",
-        "husky": "^4.3.7",
-        "standard-version": "^9.1.0"
+        "husky": "^6.0.0",
+        "standard-version": "^9.3.0"
     },
     "config": {
         "commitizen": {
             "path": "./node_modules/cz-conventional-changelog"
-        }
-    },
-    "husky": {
-        "hooks": {
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
     }
 }

@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a template for any application that uses [Nest](https://github.com/nestjs/nest) as a backend Node.js framework. This project was generated with [Nest CLI](https://docs.nestjs.com/cli/overview) version 7.5.3.
+This project is a template for any application that uses [Nest](https://github.com/nestjs/nest) as a backend Node.js framework. This project was generated with [Nest CLI](https://docs.nestjs.com/cli/overview).
 
 ## Dependency installation
 
@@ -60,7 +60,7 @@ Code spell checking is performed by [cspell](https://github.com/streetsidesoftwa
 
 ```bash
 # run the spell checker
-$ npm run cspell
+$ npm run spell
 ```
 
 ## Tests

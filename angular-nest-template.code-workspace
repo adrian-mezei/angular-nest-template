@@ -5,6 +5,11 @@
         },
         {
             "path": "./backend"
+        },
+        {
+            "name": "root",
+            "path": ".",
+            "exclude": ["./frontend", "./backend"]
         }
     ],
     "settings": {
@@ -13,6 +18,16 @@
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
         "prettier.tabWidth": 4,
-        "debug.javascript.autoAttachFilter": "smart",
+        "debug.javascript.autoAttachFilter": "smart"
+    },
+    "extensions": {
+        "recommendations": [
+            "EditorConfig.EditorConfig",
+            "esbenp.prettier-vscode",
+            "mikestead.dotenv",
+            "dbaeumer.vscode-eslint",
+            "gruntfuggly.todo-tree",
+            "streetsidesoftware.code-spell-checker"
+        ]
     }
 }

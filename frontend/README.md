@@ -1,6 +1,6 @@
 # Frontend <a href="https://www.angular.io" target="blank"><img src="https://raw.githubusercontent.com/angular/angular/master/aio/src/assets/images/logos/angular/angular.png" height="28" alt="Nest Logo" /></a>
 
-This project is a template for any application that uses [Angular](https://www.angular.io) as a frontend framework. This project was generated with [Angular CLI](https://cli.angular.io/) version 11.0.2.
+This project is a template for any application that uses [Angular](https://www.angular.io) as a frontend framework. This project was generated with [Angular CLI](https://cli.angular.io/).
 
 ## Dependency installation
 
@@ -54,6 +54,15 @@ The linting is executed via [ESLint](https://eslint.org/).
 ```bash
 # run the formatter
 $ npm run format
+```
+
+## Spell check
+
+Code spell checking is performed by [cspell](https://github.com/streetsidesoftware/cspell#readme).
+
+```bash
+# run the spell checker
+$ npm run spell
 ```
 
 Formatting is executed via [Prettier](https://prettier.io/).

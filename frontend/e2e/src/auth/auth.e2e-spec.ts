@@ -10,7 +10,7 @@ describe('Auth component', () => {
 
     it('should display login message', async () => {
         await page.navigateTo();
-        expect(await page.getLoginMessage()).toEqual('Bejelentkezés');
+        expect(await page.getLoginMessage()).toEqual('Bejelentkezés'); /* cspell: disable-line */
     });
 
     it('should display login button', async () => {

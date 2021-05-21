@@ -26,12 +26,12 @@ export class ThemeService {
         this.active = theme;
 
         if (theme.bootstrap) {
-            const newlink = document.createElement('link') as HTMLLinkElement;
-            newlink.rel = 'preload';
-            newlink.as = 'style';
-            newlink.href = theme.bootstrap;
-            newlink.onload = (ev) => (newlink.rel = 'stylesheet');
-            document.getElementsByTagName('head')[0].appendChild(newlink);
+            const newLink = document.createElement('link') as HTMLLinkElement;
+            newLink.rel = 'preload';
+            newLink.as = 'style';
+            newLink.href = theme.bootstrap;
+            newLink.onload = (ev) => (newLink.rel = 'stylesheet');
+            document.getElementsByTagName('head')[0].appendChild(newLink);
         }
 
         Object.keys(theme.properties).forEach((property) => {
