@@ -19,7 +19,7 @@ async function bootstrap() {
 
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
     app.setGlobalPrefix(basePath);
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({ transform: true }));
     setUpSwagger(app, basePath + '/swagger');
 
     await app.listen(port, host);
