@@ -34,6 +34,7 @@
         "coverage",
         "dist",
         "package-lock.json",
-        ".git" // Ignore the .git directory
+        ".git", // Ignore the .git directory
+        "e2e/e2e-test-init-db.sql"
     ]
 }

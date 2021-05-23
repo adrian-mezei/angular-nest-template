@@ -3,26 +3,50 @@ name: workflow
 on: [push, pull_request]
 
 jobs:
-    frontend-tests:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check out repository code
-              uses: actions/checkout@v2
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
-            - name: Frontend tests
-              run: |
-                  cd frontend
-                  npm install
-                  npm run test:all
+      - name: Frontend tests
+        run: |
+          cd frontend
+          npm ci
+          npm run test:all
 
-    backend-tests:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check out repository code
-              uses: actions/checkout@v2
+  backend-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: angular-nest-template
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
-            - name: Backend tests
-              run: |
-                  cd backend
-                  npm install
-                  npm run test:all
+      # - name: Initialize DB for e2e tests
+      #   env:
+      #     POSTGRES_PASSWORD: postgres
+      #   run: |
+      #     psql -U postgres -d angular-nest-template < ./backend/e2e/e2e-test-init-db.sql
+
+      - name: Backend tests
+        env:
+          AUTH__JWT_SECRET: some-random-characters-23abc
+          DB__DATABASE_NAME: angular-nest-template
+          DB__USERNAME: postgres
+          DB__PASSWORD: postgres
+        run: |
+          cd backend
+          npm ci
+          npm run test:all

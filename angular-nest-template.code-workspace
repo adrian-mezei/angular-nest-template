@@ -17,7 +17,6 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
-        "prettier.tabWidth": 4,
         "debug.javascript.autoAttachFilter": "smart"
     },
     "extensions": {

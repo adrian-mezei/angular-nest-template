@@ -18,9 +18,9 @@
         "dist",
         "package-lock.json",
         ".git", // Ignore the .git directory
-        "src\\assets",
+        "src/assets/**/*",
         "tslint.json",
-        "src\\polyfills.ts",
-        "**\\*.html"
+        "src/polyfills.ts",
+        "**/*.html"
     ]
 }
