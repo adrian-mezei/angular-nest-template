@@ -43,6 +43,9 @@ jobs:
       - name: Backend tests
         env:
           AUTH__JWT_SECRET: some-random-characters-23abc
+          AUTH__GOOGLE_OAUTH20__ENABLED: true
+          AUTH__GOOGLE_OAUTH20__CLIENT_ID: 123456789123-randomcharacters.apps.googleusercontent.com
+          AUTH__GOOGLE_OAUTH20__CLIENT_SECRET: somegooglegeneratedsecret
           DB__DATABASE_NAME: angular-nest-template
           DB__USERNAME: postgres
           DB__PASSWORD: postgres
