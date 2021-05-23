@@ -17,7 +17,7 @@
         "build:prod": "ng build --prod",
         "lint": "ng lint",
         "format": "prettier --write .",
-        "format:check": "prettier .",
+        "format:check": "prettier --check .",
         "spell": "cspell \"**/*\"",
         "test": "ng test --watch=false --code-coverage",
         "test:watch": "ng test",
