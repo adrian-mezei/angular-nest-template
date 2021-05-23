@@ -96,6 +96,7 @@ export class AppConfig {
             database: configService.get<string>('DB__DATABASE_NAME'),
             entities: [path.join(__dirname, '../**/*.entity{.ts,.js}')],
             migrations: [path.join(__dirname, '../migrations/*')],
+            keepConnectionAlive: true,
             cli: {
                 migrationsDir: 'src/migrations',
             },
