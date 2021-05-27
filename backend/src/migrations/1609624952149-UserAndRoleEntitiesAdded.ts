@@ -5,6 +5,9 @@ export class UserAndRoleEntitiesAdded1609624952149 implements MigrationInterface
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
+            CREATE TYPE "role_name_enum" AS ENUM('USER', 'ADMIN')
+        `);
+        await queryRunner.query(`
             CREATE TABLE "role" (
                 "id" SERIAL NOT NULL,
                 "name" "role_name_enum" NOT NULL DEFAULT 'USER',
@@ -72,6 +75,9 @@ export class UserAndRoleEntitiesAdded1609624952149 implements MigrationInterface
         `);
         await queryRunner.query(`
             DROP TABLE "role"
+        `);
+        await queryRunner.query(`
+            DROP TYPE "role_name_enum"
         `);
     }
 }

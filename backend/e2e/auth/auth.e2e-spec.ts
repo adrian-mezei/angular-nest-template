@@ -22,4 +22,19 @@ describe('Auth', () => {
             return request(app.getHttpServer()).get(path).expect(302);
         });
     });
+
+    describe('Local login', () => {
+        const path = '/auth/local/login';
+        const body = { email: 'john.doe@gmail.com', password: 'MySecretPw' };
+
+        it(`POST ${path} should login`, async () => {
+            const res = await request(app.getHttpServer()).post(path).send(body);
+
+            expect(res.statusCode).toEqual(200);
+            expect(res.body.email).toBe(body.email);
+            expect(res.body.firstName).toBe('John');
+            expect(res.body.lastName).toBe('Doe');
+            expect(res.body.accessToken).toBeDefined();
+        });
+    });
 });
