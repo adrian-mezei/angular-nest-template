@@ -3,7 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('AppController (e2e)', () => {
+describe('App (e2e)', () => {
     let app: INestApplication;
 
     beforeEach(async () => {
@@ -16,8 +16,10 @@ describe('AppController (e2e)', () => {
         await app.init();
     });
 
-    const path = '/';
-    it(`${path} (GET) should return 'OK'`, () => {
-        return request(app.getHttpServer()).get(path).expect(200).expect('OK');
+    describe('Health check', () => {
+        const path = '/';
+        it(`GET ${path} should return 'OK'`, () => {
+            return request(app.getHttpServer()).get(path).expect(200).expect('OK');
+        });
     });
 });

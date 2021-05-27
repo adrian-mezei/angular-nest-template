@@ -3,7 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../../src/app.module';
 
-describe('AuthController (e2e)', () => {
+describe('Auth', () => {
     let app: INestApplication;
 
     beforeEach(async () => {
@@ -16,8 +16,10 @@ describe('AuthController (e2e)', () => {
         await app.init();
     });
 
-    const path = '/auth/google';
-    it(`${path} (GET) should redirect with HTTP status 302`, () => {
-        return request(app.getHttpServer()).get(path).expect(302);
+    describe('Google login', () => {
+        const path = '/auth/google';
+        it(`GET ${path} should redirect with HTTP status 302`, () => {
+            return request(app.getHttpServer()).get(path).expect(302);
+        });
     });
 });
