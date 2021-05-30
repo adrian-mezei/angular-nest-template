@@ -1,7 +1,5 @@
 # Backend <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" height="28" alt="Nest Logo" /></a>
 
-## Description
-
 This project is a template for any application that uses [Nest](https://github.com/nestjs/nest) as a backend Node.js framework. This project was generated with [Nest CLI](https://docs.nestjs.com/cli/overview).
 
 ## Dependency installation
@@ -124,6 +122,8 @@ $ npm run migration:run
 # revert a migration
 $ npm run migration:revert
 ```
+
+TypeORM provides an easy way to configure database synchronization. (This configuration indicates that the database schema should be auto created at every application launch.) Do not use this is production, otherwise you can lose production data. This can be turned on in the TypeORM configuration section of the [src/configs/app.config.ts](src/configs/app.config.ts) by setting the `synchronize` attribute to `true`.
 
 ### Recommended VSCode plugins
 
