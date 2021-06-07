@@ -3,7 +3,8 @@ import { Controller, Post, UseGuards, Request, HttpCode, Body } from '@nestjs/co
 import { LocalAuthGuard } from '../local-auth.guard';
 import { LocalAuthService } from '../service/local-auth.service';
 import { Public } from '../../jwt-auth/decorators/public-decorator';
-import { LocalAuthLoginDto, LocalAuthLoginParamDto } from '../dtos/local-auth-login.dto';
+import { LocalAuthLoginParamDto } from '../dtos/local-auth-login.dto';
+import { LoginResponseDto } from '../../dtos/login-response.dto';
 
 @ApiTags('auth')
 @Controller('auth/local')
@@ -14,8 +15,18 @@ export class LocalAuthController {
     @Post('login')
     @UseGuards(LocalAuthGuard)
     @HttpCode(200)
-    async login(@Request() req, @Body() _body: LocalAuthLoginParamDto): Promise<LocalAuthLoginDto> {
-        // TODO Create UserDto
-        return { ...req.user, accessToken: this.localAuthService.createAccessToken(req.user) };
+    async login(@Request() req, @Body() _body: LocalAuthLoginParamDto): Promise<LoginResponseDto> {
+        const loginResponseDto: LoginResponseDto = {
+            accessToken: this.localAuthService.createAccessToken(req.user),
+            user: {
+                id: req.user.id,
+                email: req.user.email,
+                firstName: req.user.firstName,
+                lastName: req.user.lastName,
+                profileImageUrl: req.user.profileImageUrl,
+            },
+        };
+
+        return loginResponseDto;
     }
 }

@@ -15,6 +15,7 @@ export default async (): Promise<Config.InitialOptions> => {
             '/node_modules/',
             '.*\\.module\\.ts$',
             '.*\\.entity\\.ts$',
+            '.*\\.dto\\.ts$',
             'main\\.ts',
             'jwt-auth\\.guard\\.ts',
             'migrations',

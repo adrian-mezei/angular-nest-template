@@ -2,6 +2,7 @@ import { Controller, Get, NotFoundException, Req, UseGuards } from '@nestjs/comm
 import { ConfigService } from '@nestjs/config';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AppConfig } from '../../../../configs/app.config';
+import { LoginResponseDto } from '../../dtos/login-response.dto';
 import { Public } from '../../jwt-auth/decorators/public-decorator';
 import { LocalAuthService } from '../../local-auth/service/local-auth.service';
 import { GoogleAuthGuard } from '../google-auth.guard';
@@ -28,12 +29,22 @@ export class GoogleAuthController {
     @Get('callback')
     @ApiOperation({ summary: 'Google authentication callback endpoint.' })
     @UseGuards(GoogleAuthGuard)
-    async googleAuthCallback(@Req() req) {
+    async googleAuthCallback(@Req() req): Promise<LoginResponseDto> {
         if (!this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED')) {
             throw new NotFoundException();
         }
 
-        // TODO Create UserDto
-        return { ...req.user, accessToken: this.localAuthService.createAccessToken(req.user) };
+        const loginResponseDto: LoginResponseDto = {
+            accessToken: this.localAuthService.createAccessToken(req.user),
+            user: {
+                id: req.user.id,
+                email: req.user.email,
+                firstName: req.user.firstName,
+                lastName: req.user.lastName,
+                profileImageUrl: req.user.profileImageUrl,
+            },
+        };
+
+        return loginResponseDto;
     }
 }
