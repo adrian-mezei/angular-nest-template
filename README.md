@@ -1,6 +1,7 @@
 # Angular <a href="https://www.angular.io" target="blank"><img src="https://raw.githubusercontent.com/angular/angular/master/aio/src/assets/images/logos/angular/angular.png" height="28" alt="Nest Logo" /></a> frontend NestJS <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" height="28" alt="Nest Logo" /></a> backend template project
 
 ![workflow](https://github.com/adrian-mezei/angular-nest-template/actions/workflows/workflow.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/adrian-mezei/angular-nest-template/badge.svg?branch=master)](https://coveralls.io/github/adrian-mezei/angular-nest-template?branch=master)
 
 Angular frontend: further details: [Frontend README](frontend/README.md)
 
