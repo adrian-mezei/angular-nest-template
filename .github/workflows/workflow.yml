@@ -110,13 +110,6 @@ jobs:
           DB__PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         run: cd backend && npm run test:all
       
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: "./backend/coverage/lcov.info"
-          base-path: "backend"
-      
       - name: Codecov
         uses: codecov/codecov-action@v2
         with:
