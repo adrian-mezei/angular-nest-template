@@ -31,10 +31,10 @@ describe('Auth', () => {
             const res = await request(app.getHttpServer()).post(path).send(body);
 
             expect(res.statusCode).toEqual(200);
-            expect(res.body.email).toBe(body.email);
-            expect(res.body.firstName).toBe('John');
-            expect(res.body.lastName).toBe('Doe');
             expect(res.body.accessToken).toBeDefined();
+            expect(res.body.user.email).toBe(body.email);
+            expect(res.body.user.firstName).toBe('John');
+            expect(res.body.user.lastName).toBe('Doe');
         });
     });
 });
