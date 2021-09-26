@@ -6,6 +6,8 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![GitHub license](https://img.shields.io/github/license/adrian-mezei/angular-nest-template)](https://github.com/adrian-mezei/angular-nest-template/blob/master/LICENSE)
 
+[![Coverage Status](https://coveralls.io/repos/github/adrian-mezei/angular-nest-template/badge.svg?branch=master)](https://coveralls.io/github/adrian-mezei/angular-nest-template?branch=master)
+
 
 Angular frontend: further details: [Frontend README](frontend/README.md)
 
