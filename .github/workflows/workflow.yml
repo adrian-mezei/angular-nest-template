@@ -55,13 +55,6 @@ jobs:
 
       - name: Execute frontend tests
         run: cd frontend && npm run test:all
-      
-      - name: Codecov
-        uses: codecov/codecov-action@v2
-        with:
-          files: "coverage/lcov.info"
-          directory: "frontend"
-          flags: "frontend"
 
   backend-tests:
     runs-on: ubuntu-latest
@@ -122,4 +115,3 @@ jobs:
         with:
           files: "coverage/lcov.info"
           directory: "backend"
-          flags: "backend"
