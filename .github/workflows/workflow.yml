@@ -116,3 +116,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: "./backend/coverage/lcov.info"
           base-path: "backend"
+      
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: "coverage/lcov.info"
+          directory: "backend"
