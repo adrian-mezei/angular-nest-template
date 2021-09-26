@@ -2,6 +2,7 @@
     "name": "angular-nestjs-template",
     "version": "2.0.0",
     "description": "An Angular frontend NestJS backend template starter project.",
+    "license": "MIT",
     "scripts": {
         "commit": "git-cz",
         "release": "standard-version",
