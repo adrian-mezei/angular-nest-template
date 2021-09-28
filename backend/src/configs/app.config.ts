@@ -67,6 +67,10 @@ export class AppConfig {
     AUTH__JWT_SECRET: string;
 
     @IsNotEmpty()
+    @IsBoolean()
+    AUTH__LOCAL__ENABLED: boolean;
+
+    @IsNotEmpty()
     @IsString()
     DB__HOST: string;
 

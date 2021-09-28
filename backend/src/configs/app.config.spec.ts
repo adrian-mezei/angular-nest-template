@@ -26,6 +26,9 @@ const testConfigurationFileContent = {
             GOOGLE_CLIENT_ID: '',
             GOOGLE_CLIENT_SECRET: '',
         },
+        LOCAL: {
+            ENABLED: true,
+        },
     },
 
     DB: {

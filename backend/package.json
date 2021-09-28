@@ -24,7 +24,7 @@
         "spell": "cspell \"**/*\"",
         "test": "jest --coverage",
         "test:watch": "jest --watch",
-        "test:e2e": "jest --config ./e2e/jest-e2e.json",
+        "test:e2e": "jest --config ./e2e/jest-e2e.ts",
         "test:all": "npm run spell && npm run lint:check && npm run format:check && npm run test && npm run test:e2e",
         "m": "nest generate module",
         "c": "nest generate --flat controller",

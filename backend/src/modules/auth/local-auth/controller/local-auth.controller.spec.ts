@@ -9,6 +9,9 @@ import { RoleName } from '../../../role/role-name.enum';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Role } from '../../../role/entities/role.entity';
+import { ConfigModule } from '@nestjs/config';
+import { AppConfig } from '../../../../configs/app.config';
+import { BadRequestException } from '@nestjs/common';
 
 describe('LocalAuthController', () => {
     let controller: LocalAuthController;
@@ -25,7 +28,12 @@ describe('LocalAuthController', () => {
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            imports: [JwtModule.register({ secret: 'very-secret' })],
+            imports: [
+                ConfigModule.forRoot({
+                    validate: config => AppConfig.setupAndValidate(config),
+                }),
+                JwtModule.register({ secret: 'very-secret' }),
+            ],
             controllers: [LocalAuthController],
             providers: [
                 LocalAuthService,
@@ -60,6 +68,41 @@ describe('LocalAuthController', () => {
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
             const response = await controller.login(loginObject, undefined as any);
             expect(response.accessToken).toBeDefined();
+        });
+
+        it('if disabled then with valid credentials should throw BadRequest exception', async () => {
+            const module: TestingModule = await Test.createTestingModule({
+                imports: [
+                    ConfigModule.forRoot({
+                        validate: config => AppConfig.setupAndValidate({ ...config, AUTH__LOCAL__ENABLED: false }),
+                    }),
+                    JwtModule.register({ secret: 'very-secret' }),
+                ],
+                controllers: [LocalAuthController],
+                providers: [
+                    LocalAuthService,
+                    UserService,
+                    {
+                        provide: getRepositoryToken(User),
+                        useClass: Repository,
+                    },
+                    {
+                        provide: getRepositoryToken(Role),
+                        useClass: Repository,
+                    },
+                ],
+            }).compile();
+
+            const controller = module.get<LocalAuthController>(LocalAuthController);
+
+            const loginObject = {
+                user: {
+                    id: 1,
+                },
+            };
+
+            const fn = () => controller.login(loginObject, undefined as any);
+            expect(fn).rejects.toThrow(new BadRequestException());
         });
     });
 });
