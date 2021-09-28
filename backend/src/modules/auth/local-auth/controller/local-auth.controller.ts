@@ -1,16 +1,16 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post, UseGuards, Request, HttpCode, Body, BadRequestException } from '@nestjs/common';
 import { LocalAuthGuard } from '../local-auth.guard';
-import { LocalAuthService } from '../service/local-auth.service';
 import { Public } from '../../jwt-auth/decorators/public-decorator';
 import { LocalAuthLoginParamDto } from '../dtos/local-auth-login.dto';
 import { LoginResponseDto } from '../../dtos/login-response.dto';
 import { ConfigService } from '@nestjs/config';
+import { JwtAuthService } from '../../jwt-auth/service/jwt-auth.service';
 
 @ApiTags('auth')
 @Controller('auth/local')
 export class LocalAuthController {
-    constructor(private readonly localAuthService: LocalAuthService, private readonly configService: ConfigService) {}
+    constructor(private readonly jwtAuthService: JwtAuthService, private readonly configService: ConfigService) {}
 
     @Public()
     @Post('login')
@@ -22,7 +22,7 @@ export class LocalAuthController {
         }
 
         const loginResponseDto: LoginResponseDto = {
-            accessToken: this.localAuthService.createAccessToken(req.user),
+            accessToken: this.jwtAuthService.createAccessToken(req.user),
             user: {
                 id: req.user.id,
                 email: req.user.email,

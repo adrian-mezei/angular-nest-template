@@ -1,16 +1,16 @@
-import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from '../../../user/entities/user.entity';
 import { UserService } from '../../../user/service/user.service';
-import { LocalAuthService } from '../service/local-auth.service';
 import { LocalAuthController } from './local-auth.controller';
 import * as bcrypt from 'bcrypt';
 import { RoleName } from '../../../role/role-name.enum';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Role } from '../../../role/entities/role.entity';
+import { JwtAuthService } from '../../jwt-auth/service/jwt-auth.service';
 import { ConfigModule } from '@nestjs/config';
 import { AppConfig } from '../../../../configs/app.config';
+import { JwtModule } from '@nestjs/jwt';
 import { BadRequestException } from '@nestjs/common';
 
 describe('LocalAuthController', () => {
@@ -29,14 +29,12 @@ describe('LocalAuthController', () => {
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [
-                ConfigModule.forRoot({
-                    validate: config => AppConfig.setupAndValidate(config),
-                }),
+                ConfigModule.forRoot({ validate: config => AppConfig.setupAndValidate(config) }),
                 JwtModule.register({ secret: 'very-secret' }),
             ],
             controllers: [LocalAuthController],
             providers: [
-                LocalAuthService,
+                JwtAuthService,
                 UserService,
                 {
                     provide: getRepositoryToken(User),
@@ -80,7 +78,7 @@ describe('LocalAuthController', () => {
                 ],
                 controllers: [LocalAuthController],
                 providers: [
-                    LocalAuthService,
+                    JwtAuthService,
                     UserService,
                     {
                         provide: getRepositoryToken(User),

@@ -62,12 +62,13 @@ jobs:
     env:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: angular-nest-template-e2e
     services:
       postgres:
         image: postgres
         env:
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -97,7 +98,9 @@ jobs:
       - name: Seed test data for end-to-end tests
         env:
           PGPASSWORD: ${{ env.POSTGRES_PASSWORD }}
-        run: psql -h localhost -U postgres < ./backend/e2e/e2e-test-init-db.sql
+          PGDATABASE: ${{ env.POSTGRES_DB }}
+          PGUSER: ${{ env.POSTGRES_USER }}
+        run: psql -h localhost < ./backend/e2e/e2e-test-init-db.sql
 
       - name: Execute backend tests
         env:

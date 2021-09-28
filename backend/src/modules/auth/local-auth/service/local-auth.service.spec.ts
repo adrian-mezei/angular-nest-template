@@ -1,4 +1,3 @@
-import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -15,7 +14,6 @@ describe('LocalAuthService', () => {
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            imports: [JwtModule.register({ secret: 'very-secret' })],
             providers: [
                 LocalAuthService,
                 UserService,

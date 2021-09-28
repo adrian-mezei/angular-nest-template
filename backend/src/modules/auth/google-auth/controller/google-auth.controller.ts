@@ -4,7 +4,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AppConfig } from '../../../../configs/app.config';
 import { LoginResponseDto } from '../../dtos/login-response.dto';
 import { Public } from '../../jwt-auth/decorators/public-decorator';
-import { LocalAuthService } from '../../local-auth/service/local-auth.service';
+import { JwtAuthService } from '../../jwt-auth/service/jwt-auth.service';
 import { GoogleAuthGuard } from '../google-auth.guard';
 
 @ApiTags('auth')
@@ -12,7 +12,7 @@ import { GoogleAuthGuard } from '../google-auth.guard';
 export class GoogleAuthController {
     constructor(
         private readonly configService: ConfigService<AppConfig>,
-        private readonly localAuthService: LocalAuthService,
+        private readonly jwtAuthService: JwtAuthService,
     ) {}
 
     @Public()
@@ -35,7 +35,7 @@ export class GoogleAuthController {
         }
 
         const loginResponseDto: LoginResponseDto = {
-            accessToken: this.localAuthService.createAccessToken(req.user),
+            accessToken: this.jwtAuthService.createAccessToken(req.user),
             user: {
                 id: req.user.id,
                 email: req.user.email,

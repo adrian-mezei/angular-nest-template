@@ -40,6 +40,10 @@ describe('JwtStrategy', () => {
                     provide: getRepositoryToken(Role),
                     useClass: Repository,
                 },
+                {
+                    provide: 'JwtService',
+                    useClass: jest.fn(),
+                },
             ],
         }).compile();
 

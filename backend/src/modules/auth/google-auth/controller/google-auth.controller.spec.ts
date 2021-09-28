@@ -8,10 +8,10 @@ import { AppConfig } from '../../../../configs/app.config';
 import { Role } from '../../../role/entities/role.entity';
 import { User } from '../../../user/entities/user.entity';
 import { UserService } from '../../../user/service/user.service';
-import { LocalAuthService } from '../../local-auth/service/local-auth.service';
 import { GoogleAuthController } from './google-auth.controller';
 import * as bcrypt from 'bcrypt';
 import { RoleName } from '../../../role/role-name.enum';
+import { JwtAuthService } from '../../jwt-auth/service/jwt-auth.service';
 
 describe('GoogleAuthController', () => {
     const userUser = new User();
@@ -42,7 +42,7 @@ describe('GoogleAuthController', () => {
                 controllers: [GoogleAuthController],
                 providers: [
                     UserService,
-                    LocalAuthService,
+                    JwtAuthService,
                     ConfigService,
                     {
                         provide: getRepositoryToken(User),
@@ -77,7 +77,7 @@ describe('GoogleAuthController', () => {
                 controllers: [GoogleAuthController],
                 providers: [
                     UserService,
-                    LocalAuthService,
+                    JwtAuthService,
                     ConfigService,
                     {
                         provide: getRepositoryToken(User),
@@ -116,7 +116,7 @@ describe('GoogleAuthController', () => {
                 controllers: [GoogleAuthController],
                 providers: [
                     UserService,
-                    LocalAuthService,
+                    JwtAuthService,
                     ConfigService,
                     {
                         provide: getRepositoryToken(User),
@@ -158,7 +158,7 @@ describe('GoogleAuthController', () => {
                 controllers: [GoogleAuthController],
                 providers: [
                     UserService,
-                    LocalAuthService,
+                    JwtAuthService,
                     ConfigService,
                     {
                         provide: getRepositoryToken(User),

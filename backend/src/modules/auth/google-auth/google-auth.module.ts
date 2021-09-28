@@ -4,12 +4,12 @@ import { ConfigModule } from '@nestjs/config';
 import { GoogleAuthController } from './controller/google-auth.controller';
 import { UserModule } from '../../user/user.module';
 import { UserService } from '../../user/service/user.service';
-import { LocalAuthModule } from '../local-auth/local-auth.module';
 import { GoogleAuthService } from './service/google-auth.service';
 import { RoleModule } from '../../role/role.module';
+import { JwtAuthModule } from '../jwt-auth/jwt-auth.module';
 
 @Module({
-    imports: [UserModule, ConfigModule, LocalAuthModule, RoleModule],
+    imports: [UserModule, ConfigModule, JwtAuthModule, RoleModule],
     providers: [UserService, GoogleStrategy, GoogleAuthService],
     controllers: [GoogleAuthController],
 })
