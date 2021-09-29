@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### ⚠ BREAKING CHANGES
 
-* Some dependency major versions are updated.
+* some dependency major versions are updated
 * removed version endpoint
 
 ### Features
