@@ -17,12 +17,9 @@ describe('LocalAuthController', () => {
     let controller: LocalAuthController;
     let userRepository: Repository<User>;
 
-    const userUser = new User();
+    const userUser = new User('john.doe@gmail.com', 'John', 'Doe');
     userUser.id = 1;
     userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-    userUser.email = 'john.doe@gmail.com';
-    userUser.firstName = 'John';
-    userUser.lastName = 'Doe';
     userUser.password = bcrypt.hashSync('MySecretPw', 10);
     userUser.roles = [{ id: 1, name: RoleName.USER }];
 
@@ -64,7 +61,7 @@ describe('LocalAuthController', () => {
             };
 
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
-            const response = await controller.login(loginObject, undefined as any);
+            const response = await controller.login(loginObject as any, undefined as any);
             expect(response.accessToken).toBeDefined();
         });
 
@@ -99,7 +96,7 @@ describe('LocalAuthController', () => {
                 },
             };
 
-            const fn = () => controller.login(loginObject, undefined as any);
+            const fn = () => controller.login(loginObject as any, undefined as any);
             expect(fn).rejects.toThrow(new BadRequestException());
         });
     });

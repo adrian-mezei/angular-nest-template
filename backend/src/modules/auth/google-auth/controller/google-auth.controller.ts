@@ -2,6 +2,7 @@ import { Controller, Get, NotFoundException, Req, UseGuards } from '@nestjs/comm
 import { ConfigService } from '@nestjs/config';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AppConfig } from '../../../../configs/app.config';
+import { User } from '../../../user/entities/user.entity';
 import { LoginResponseDto } from '../../dtos/login-response.dto';
 import { Public } from '../../jwt-auth/decorators/public-decorator';
 import { JwtAuthService } from '../../jwt-auth/service/jwt-auth.service';
@@ -29,7 +30,7 @@ export class GoogleAuthController {
     @Get('callback')
     @ApiOperation({ summary: 'Google authentication callback endpoint.' })
     @UseGuards(GoogleAuthGuard)
-    async googleAuthCallback(@Req() req): Promise<LoginResponseDto> {
+    async googleAuthCallback(@Req() req: Request & { user: User }): Promise<LoginResponseDto> {
         if (!this.configService.get<boolean>('AUTH__GOOGLE_OAUTH20__ENABLED')) {
             throw new NotFoundException();
         }
@@ -37,7 +38,7 @@ export class GoogleAuthController {
         const loginResponseDto: LoginResponseDto = {
             accessToken: this.jwtAuthService.createAccessToken(req.user),
             user: {
-                id: req.user.id,
+                id: req.user.id!,
                 email: req.user.email,
                 firstName: req.user.firstName,
                 lastName: req.user.lastName,

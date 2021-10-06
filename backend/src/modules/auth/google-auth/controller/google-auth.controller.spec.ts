@@ -14,12 +14,9 @@ import { RoleName } from '../../../role/role-name.enum';
 import { JwtAuthService } from '../../jwt-auth/service/jwt-auth.service';
 
 describe('GoogleAuthController', () => {
-    const userUser = new User();
+    const userUser = new User('john.doe@gmail.com', 'John', 'Doe');
     userUser.id = 1;
     userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-    userUser.email = 'john.doe@gmail.com';
-    userUser.firstName = 'John';
-    userUser.lastName = 'Doe';
     userUser.password = bcrypt.hashSync('MySecretPw', 10);
     userUser.roles = [{ id: 1, name: RoleName.USER }];
 
@@ -137,7 +134,7 @@ describe('GoogleAuthController', () => {
             };
 
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
-            const response = await controller.googleAuthCallback(request);
+            const response = await controller.googleAuthCallback(request as any);
 
             expect(response.accessToken).toBeDefined();
         });
@@ -179,7 +176,7 @@ describe('GoogleAuthController', () => {
             };
 
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
-            const callback = () => controller.googleAuthCallback(request);
+            const callback = () => controller.googleAuthCallback(request as any);
 
             expect(callback).rejects.toEqual(new NotFoundException());
         });

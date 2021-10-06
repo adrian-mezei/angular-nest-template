@@ -2,13 +2,13 @@ import { User } from './user.entity';
 
 describe('User', () => {
     it('should be defined', () => {
-        const user = new User();
+        const user = new User(undefined as any, undefined as any, undefined as any);
         expect(user).toBeDefined();
     });
 
     describe('hashPassword', () => {
         it('should update the password field value', async () => {
-            const user = new User();
+            const user = new User(undefined as any, undefined as any, undefined as any);
             const userPlainPassword = 'test';
 
             user.password = userPlainPassword;
@@ -21,7 +21,7 @@ describe('User', () => {
 
     describe('comparePassword', () => {
         it('should return true on good password', async () => {
-            const user = new User();
+            const user = new User(undefined as any, undefined as any, undefined as any);
             const userPlainPassword = 'test';
 
             user.password = userPlainPassword;
@@ -32,7 +32,7 @@ describe('User', () => {
         });
 
         it('should return false on bad password', async () => {
-            const user = new User();
+            const user = new User(undefined as any, undefined as any, undefined as any);
 
             user.password = 'test';
             await user.hashPassword();

@@ -38,12 +38,9 @@ describe('LocalAuthService', () => {
 
     describe('validateUser', () => {
         it('should return user if password is correct', async () => {
-            const userUser = new User();
+            const userUser = new User('john.doe@gmail.com', 'John', 'Doe');
             userUser.id = 1;
             userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-            userUser.email = 'john.doe@gmail.com';
-            userUser.firstName = 'John';
-            userUser.lastName = 'Doe';
             userUser.password = bcrypt.hashSync('MySecretPw', 10);
             userUser.roles = [{ id: 1, name: RoleName.USER }];
 
@@ -56,12 +53,9 @@ describe('LocalAuthService', () => {
 
     describe('validateUser', () => {
         it('should return undefined if password is incorrect', async () => {
-            const userUser = new User();
+            const userUser = new User('john.doe@gmail.com', 'John', 'Doe');
             userUser.id = 1;
             userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-            userUser.email = 'john.doe@gmail.com';
-            userUser.firstName = 'John';
-            userUser.lastName = 'Doe';
             userUser.password = bcrypt.hashSync('MySecretPw', 10);
             userUser.roles = [{ id: 1, name: RoleName.USER }];
 

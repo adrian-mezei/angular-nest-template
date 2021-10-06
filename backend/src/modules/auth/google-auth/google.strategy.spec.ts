@@ -16,12 +16,9 @@ describe('GoogleStrategy', () => {
     let googleStrategy: GoogleStrategy;
     let userRepository: Repository<User>;
 
-    const userUser = new User();
+    const userUser = new User('john.doe@gmail.com', 'John', 'Doe');
     userUser.id = 1;
     userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-    userUser.email = 'john.doe@gmail.com';
-    userUser.firstName = 'John';
-    userUser.lastName = 'Doe';
     userUser.password = bcrypt.hashSync('MySecretPw', 10);
     userUser.roles = [{ id: 1, name: RoleName.USER }];
 
@@ -129,19 +126,15 @@ describe('GoogleStrategy', () => {
                 ],
             };
 
-            const unnamedUser = new User();
+            const unnamedUser = new User('john.doe@gmail.com', undefined as any, undefined as any);
             unnamedUser.id = 1;
             unnamedUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-            unnamedUser.email = 'john.doe@gmail.com';
             unnamedUser.password = bcrypt.hashSync('MySecretPw', 10);
             unnamedUser.roles = [{ id: 1, name: RoleName.USER }];
 
-            const namedUser = new User();
+            const namedUser = new User('john.doe@gmail.com', 'John', 'Doe');
             namedUser.id = 1;
             namedUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-            namedUser.email = 'john.doe@gmail.com';
-            namedUser.firstName = 'John';
-            namedUser.lastName = 'Doe';
             namedUser.profileImageUrl = 'http://my-image.com/image';
             namedUser.password = bcrypt.hashSync('MySecretPw', 10);
             namedUser.roles = [{ id: 1, name: RoleName.USER }];
@@ -171,18 +164,17 @@ describe('GoogleStrategy', () => {
                 ],
             };
 
-            const namedUser = new User();
+            const namedUser = new User('john.doe@gmail.com', 'John', 'Doe');
             namedUser.id = 1;
             namedUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-            namedUser.email = 'john.doe@gmail.com';
-            namedUser.firstName = 'John';
-            namedUser.lastName = 'Doe';
             namedUser.profileImageUrl = 'http://my-image.com/image';
             namedUser.password = bcrypt.hashSync('MySecretPw', 10);
             namedUser.roles = [{ id: 1, name: RoleName.USER }];
 
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(namedUser);
-            const saveSpy = jest.spyOn(userRepository, 'save').mockResolvedValue(new User());
+            const saveSpy = jest
+                .spyOn(userRepository, 'save')
+                .mockResolvedValue(new User(undefined as any, undefined as any, undefined as any));
             const user: User = await googleStrategy.validate('', undefined, profile);
 
             expect(user).toBeDefined();
@@ -210,17 +202,17 @@ describe('GoogleStrategy', () => {
                 ],
             };
 
-            const namedUser = new User();
+            const namedUser = new User('john.doe@gmail.com', undefined as any, 'Doe');
             namedUser.id = 1;
             namedUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-            namedUser.email = 'john.doe@gmail.com';
-            namedUser.lastName = 'Doe';
             namedUser.profileImageUrl = 'http://my-image.com/image';
             namedUser.password = bcrypt.hashSync('MySecretPw', 10);
             namedUser.roles = [{ id: 1, name: RoleName.USER }];
 
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(namedUser);
-            const saveSpy = jest.spyOn(userRepository, 'save').mockResolvedValue(new User());
+            const saveSpy = jest
+                .spyOn(userRepository, 'save')
+                .mockResolvedValue(new User(undefined as any, undefined as any, undefined as any));
             const user: User = await googleStrategy.validate('', undefined, profile);
 
             expect(user).toBeDefined();
@@ -240,7 +232,9 @@ describe('GoogleStrategy', () => {
             };
 
             jest.spyOn(userRepository, 'findOne').mockResolvedValue(userUser);
-            const saveSpy = jest.spyOn(userRepository, 'save').mockResolvedValue(new User());
+            const saveSpy = jest
+                .spyOn(userRepository, 'save')
+                .mockResolvedValue(new User(undefined as any, undefined as any, undefined as any));
             const user: User = await googleStrategy.validate('', undefined, profile);
 
             expect(user).toBeDefined();

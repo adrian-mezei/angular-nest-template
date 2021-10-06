@@ -22,7 +22,7 @@ export class User {
     @Column({
         unique: true,
     })
-    guid: string;
+    guid?: string;
 
     @Column({
         unique: true,
@@ -40,20 +40,26 @@ export class User {
 
     @Column({ select: false, nullable: true })
     @ApiHideProperty()
-    password: string;
+    password?: string;
 
     @ManyToMany(() => Role)
     @JoinTable()
-    roles: Role[];
+    roles?: Role[];
 
     @CreateDateColumn()
-    createdAt: Date;
+    createdAt?: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updatedAt?: Date;
 
     @DeleteDateColumn()
-    deletedAt: Date;
+    deletedAt?: Date;
+
+    constructor(email: string, firstName: string, lastName: string) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     @BeforeInsert()
     async hashPassword(): Promise<void> {
@@ -68,6 +74,8 @@ export class User {
     }
 
     async comparePassword(attempt: string): Promise<boolean> {
+        if (!this.password) return false;
+
         return await bcrypt.compare(attempt, this.password);
     }
 }

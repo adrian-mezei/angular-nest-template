@@ -9,7 +9,7 @@ export class AppPage {
         return element(by.css('app-root .login-form h2')).getText();
     }
 
-    async getLoginButton(): Promise<ElementFinder> {
+    getLoginButton(): ElementFinder {
         return element(by.css('app-root .login-form div form button'));
     }
 }

@@ -10,85 +10,85 @@ import path from 'path';
 export class AppConfig {
     @IsNotEmpty()
     @IsString()
-    HOST: string;
+    HOST?: string;
 
     @IsNotEmpty()
     @IsNumber()
-    PORT: number;
+    PORT?: number;
 
     @IsNotEmpty()
     @IsString()
-    BASE_PATH: string;
+    BASE_PATH?: string;
 
     @IsNotEmpty()
     @IsEnum(LoggerTarget)
-    LOGGER__TARGET: string;
+    LOGGER__TARGET?: string;
 
     @IsNotEmpty()
     @IsEnum(LoggerLevel)
-    LOGGER__LEVEL: string;
+    LOGGER__LEVEL?: string;
 
     @IsNotEmpty()
     @IsEnum(LoggerFormat)
-    LOGGER__FORMAT: string;
+    LOGGER__FORMAT?: string;
 
     @IsNotEmpty()
     @IsBoolean()
-    LOGGER__COLORIZE: boolean;
+    LOGGER__COLORIZE?: boolean;
 
     @IsNotEmpty()
     @IsString()
-    LOGGER__FILE_OPTIONS__FOLDER_PATH: string;
+    LOGGER__FILE_OPTIONS__FOLDER_PATH?: string;
 
     @IsNotEmpty()
     @IsNumber()
-    LOGGER__FILE_OPTIONS__MAX_SIZE_BYTES: number;
+    LOGGER__FILE_OPTIONS__MAX_SIZE_BYTES?: number;
 
     @IsNotEmpty()
     @IsNumber()
-    LOGGER__FILE_OPTIONS__MAX_FILES_COUNT: number;
+    LOGGER__FILE_OPTIONS__MAX_FILES_COUNT?: number;
 
     @IsNotEmpty()
     @IsBoolean()
-    AUTH__GOOGLE_OAUTH20__ENABLED: boolean;
+    AUTH__GOOGLE_OAUTH20__ENABLED?: boolean;
 
     @IsNotEmpty()
     @IsString()
     @ValidateIf(c => c.AUTH__GOOGLE_OAUTH20__ENABLED)
-    AUTH__GOOGLE_OAUTH20__CLIENT_ID: string;
+    AUTH__GOOGLE_OAUTH20__CLIENT_ID?: string;
 
     @IsNotEmpty()
     @IsString()
     @ValidateIf(c => c.AUTH__GOOGLE_OAUTH20__ENABLED)
-    AUTH__GOOGLE_OAUTH20__CLIENT_SECRET: string;
+    AUTH__GOOGLE_OAUTH20__CLIENT_SECRET?: string;
 
     @IsNotEmpty()
     @IsString()
-    AUTH__JWT_SECRET: string;
+    AUTH__JWT_SECRET?: string;
 
     @IsNotEmpty()
     @IsBoolean()
-    AUTH__LOCAL__ENABLED: boolean;
+    AUTH__LOCAL__ENABLED?: boolean;
 
     @IsNotEmpty()
     @IsString()
-    DB__HOST: string;
+    DB__HOST?: string;
 
     @IsNotEmpty()
     @IsNumber()
-    DB__PORT: number;
+    DB__PORT?: number;
 
     @IsNotEmpty()
     @IsString()
-    DB__USERNAME: string;
+    DB__USERNAME?: string;
 
     @IsNotEmpty()
     @IsString()
-    DB__PASSWORD: string;
+    DB__PASSWORD?: string;
 
     @IsNotEmpty()
     @IsString()
-    DB__DATABASE_NAME: string;
+    DB__DATABASE_NAME?: string;
 
     static getTypeOrmConfig(configService: ConfigService<AppConfig>): TypeOrmModuleOptions {
         return {
@@ -127,7 +127,7 @@ export class AppConfig {
 
         for (const config of configs) {
             for (const key in config) {
-                mergedConfig[key] = config[key];
+                (mergedConfig as any)[key] = config[key];
             }
         }
 

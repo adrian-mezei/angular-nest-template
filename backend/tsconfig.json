@@ -13,6 +13,7 @@
         "incremental": true,
         "strictNullChecks": true,
         "resolveJsonModule": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "strict": true
     }
 }

@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./loader.component.css'],
 })
 export class LoaderComponent implements OnInit {
-    @Input() public message: string;
+    @Input() public message?: string;
 
     constructor() {}
 

@@ -32,7 +32,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         if (!user) return false;
 
         const userHasRequiredRole = requiredRoles.some(requiredRole =>
-            user.roles.find(userRole => userRole.name === requiredRole),
+            user.roles?.find(userRole => userRole.name === requiredRole),
         );
         if (userHasRequiredRole) return true;
 

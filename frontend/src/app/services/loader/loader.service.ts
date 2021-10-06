@@ -7,7 +7,7 @@ import { LoaderOverlayComponent } from 'src/app/components/loader-overlay/loader
     providedIn: 'root',
 })
 export class LoaderService {
-    private overlayRef: OverlayRef = null;
+    private overlayRef?: OverlayRef = undefined;
 
     constructor(private overlay: Overlay) {}
 

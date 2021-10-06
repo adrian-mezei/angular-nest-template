@@ -13,21 +13,15 @@ describe('UserController', () => {
     let controller: UserController;
     let userRepository: Repository<User>;
 
-    const userUser = new User();
+    const userUser = new User('john.doe@gmail.com', 'John', 'Doe');
     userUser.id = 1;
     userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-    userUser.email = 'john.doe@gmail.com';
-    userUser.firstName = 'John';
-    userUser.lastName = 'Doe';
     userUser.password = bcrypt.hashSync('MySecretPw', 10);
     userUser.roles = [{ id: 1, name: RoleName.USER }];
 
-    const adminUser = new User();
+    const adminUser = new User('john.doe.dev@gmail.com', 'John', 'Doe Dev');
     adminUser.id = 2;
     adminUser.guid = '91b2bda4-b0e4-4416-8850-43ec2fc732ce';
-    adminUser.email = 'john.doe.dev@gmail.com';
-    adminUser.firstName = 'John';
-    adminUser.lastName = 'Doe Dev';
     adminUser.password = bcrypt.hashSync('MyOtherSecretPw', 10);
     adminUser.roles = [{ id: 2, name: RoleName.ADMIN }];
 

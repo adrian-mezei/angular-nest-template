@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./loader-overlay.component.scss'],
 })
 export class LoaderOverlayComponent implements OnInit {
-    @Input() public message: string;
+    @Input() public message?: string;
     constructor() {}
 
     ngOnInit(): void {}

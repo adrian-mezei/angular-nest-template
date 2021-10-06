@@ -15,7 +15,7 @@ describe('Auth component', () => {
 
     it('should display login button', async () => {
         await page.navigateTo();
-        expect((await page.getLoginButton()).isPresent()).toBeTruthy();
+        expect(page.getLoginButton().isPresent()).toBeTruthy();
     });
 
     afterEach(async () => {

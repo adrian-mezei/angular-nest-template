@@ -4,7 +4,7 @@ import { RoleName } from '../role-name.enum';
 @Entity()
 export class Role {
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
     @Column({
         type: 'enum',
@@ -14,4 +14,8 @@ export class Role {
         unique: true,
     })
     name: RoleName;
+
+    constructor(name: RoleName) {
+        this.name = name;
+    }
 }

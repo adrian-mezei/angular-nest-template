@@ -16,19 +16,16 @@ describe('RequestUser', () => {
     let userController: UserController;
     let userRepository: Repository<User>;
 
-    const userUser = new User();
+    const userUser = new User('john.doe@gmail.com', 'John', 'Doe');
     userUser.id = 1;
     userUser.guid = '1a43d3d9-9bde-441d-ac60-372e34789c2c';
-    userUser.email = 'john.doe@gmail.com';
-    userUser.firstName = 'John';
-    userUser.lastName = 'Doe';
     userUser.password = bcrypt.hashSync('MySecretPw', 10);
     userUser.roles = [{ id: 1, name: RoleName.USER }];
 
     function getParamDecoratorFactory(_decorator: any) {
         class TestDecorator {
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            public test(@RequestUser() _value) {}
+            public test(@RequestUser() _value: any) {}
         }
 
         const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, TestDecorator, 'test');
